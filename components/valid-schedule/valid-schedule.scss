@@ -1,0 +1,11 @@
+valid-schedule {
+	background-color: white;
+	display: flex !important;
+	flex-direction: column;
+
+	font-size: 1.5em;
+
+	& > * {
+		margin: auto;
+	}
+}

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let item of wp.items.posts" (click)="itemTapped($event, item)">
+      <!--<ion-icon [name]="star" item-start></ion-icon>-->
+      <p>{{item.title}}</p>
+      <div [innerHTML]="bloc(item.content, 'blockquote')" class="description"></div>
+    </div>
+  </ion-list>
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+</ion-content>

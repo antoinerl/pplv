@@ -1,0 +1,20 @@
+recurrent-menu {
+	background-color: white;
+	color: color($colors, primary, base) !important;
+	z-index: 25;
+	width: 100%;
+    text-align: center;
+    display: none;
+
+    fieldset {
+        position: relative;
+    	cursor: pointer;
+    	&:hover {
+    		background-color: lighten( color($colors, primary, base), 15%) !important;
+    	}
+    	input {
+    		display: none;
+    	}
+    }
+
+}
