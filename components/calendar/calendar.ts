@@ -75,10 +75,10 @@ export class CalendarComponent {
       return;
 
     this.dateProvider.valid(this.idUser).then(data => {
-          displayAlert(data);
+          this.displayAlert(data);
         })
         .catch(err => {
-          reject(err);
+          console.log(err);
         });;
   }
 
