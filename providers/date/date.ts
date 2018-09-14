@@ -47,11 +47,11 @@ export class DateProvider {
   	return this.recur;
   }
 
-  valid() {
+  valid(id) {
 
     let time = this.date + this.hour*3600;
     let parameters = {
-      _id: "1",
+      _id: id,
       password: "$P$BllpJAyXJj.62cTsWXkDDtfYoAJ/vS1",
       from: String(time)
     }

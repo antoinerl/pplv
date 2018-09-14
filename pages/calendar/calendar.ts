@@ -25,7 +25,6 @@ export class CalendarPage {
     this.header = navParams.get('header');
     this.date = navParams.get('date');
 
-    console.log(this.header);
   }
 
   ionViewDidLoad() {

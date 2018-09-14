@@ -46,9 +46,10 @@ export class CalendarComponent {
 	}
 
 	onChange($event) {
-    this.dateProvider.setSelectedDate($event[$event.length-1].unix());
-    this.selectedDate = this.dateProvider.getSelectedDate();
     console.log($event);
+    this.dateProvider.setSelectedDate($event.unix());
+    this.selectedDate = this.dateProvider.getSelectedDate();
+    
 	  //$(".hours").show();
     $(".hours").removeClass("disabled");
     if (this.recurrence)
@@ -61,6 +62,7 @@ export class CalendarComponent {
       return;
     console.log(hour);
     this.dateProvider.setSelectedHour(hour);
+    $(".hour").removeClass("selected");
     $("#"+hour).addClass("selected");
     $("#valid").removeClass("disabled");
   }
@@ -71,27 +73,29 @@ export class CalendarComponent {
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 
-    this.dateProvider.valid();
+    this.dateProvider.valid(this.idUser);
   }
 
 	openCalendar() {
 
-      this.dates = ['2018-09-28', '2018-09-29', '2018-10-01'];
+      //this.dates = ['2018-09-28', '2018-09-29', '2018-10-01'];
+      this.dates = [];
       let _daysConfig: DayConfig[] = this.selectDates();
 
+      /*
       _daysConfig.push({
         date: new Date(2018, 8, 26),
         subTitle: '0',
         cssClass: 'empty-ranges'
       });
-
+      */
       
       this.optionsMulti = {
         monthFormat: 'MMMM YYYY',
         monthPickerFormat: ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AOUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE'],
         weekdays: ['D', 'L', 'Ma', 'Me', 'J', 'V', 'S'],
         weekStart: 1,
-        pickMode: 'multi',
+        pickMode: 'single',
         daysConfig: _daysConfig
       };
     }
