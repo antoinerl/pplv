@@ -59,6 +59,8 @@ export class DateProvider {
 
       this.http.get(this.config.wsURL + "/persons/addTimePerson.php", parameters, {}) 
         .then(data => {
+          delete this.date;
+          delete this.hour;
           resolve(data.data);
         })
         .catch(err => {

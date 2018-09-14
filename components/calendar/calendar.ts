@@ -74,6 +74,8 @@ export class CalendarComponent {
       return;
 
     this.dateProvider.valid(this.idUser).then(data => {
+          $(".hour").removeClass("selected");
+          $(".on-selected").removeClass(".on-selected");
           this.displayAlert(data);
         })
         .catch(err => {
