@@ -59,7 +59,7 @@ export class DateProvider {
 
       this.http.get(this.config.wsURL + "/persons/addTimePerson.php", parameters, {}) 
         .then(data => {
-          resolve(data);
+          resolve(data.data);
         })
         .catch(err => {
           reject(err);
