@@ -73,7 +73,12 @@ export class CalendarComponent {
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 
-    this.dateProvider.valid(this.idUser);
+    this.dateProvider.valid(this.idUser).then(data => {
+          displayAlert(data);
+        })
+        .catch(err => {
+          reject(err);
+        });;
   }
 
 	openCalendar() {
@@ -111,6 +116,12 @@ export class CalendarComponent {
       }
 
       return _daysConfig;
+    }
+
+    displayAlert(data) {
+      var win = document.getElementById("iframe").contentWindow;
+      alert(win);
+      win.postMessage(data, "*");
     }
 
 }

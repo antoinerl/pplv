@@ -47,21 +47,23 @@ export class DateProvider {
   	return this.recur;
   }
 
-  valid(id) {
+  valid(id): Promise <any> {
+    return new Promise( (resolve, reject) => {
 
-    let time = this.date + this.hour*3600;
-    let parameters = {
-      _id: id,
-      password: "$P$BllpJAyXJj.62cTsWXkDDtfYoAJ/vS1",
-      from: String(time)
-    }
+      let time = this.date + this.hour*3600;
+      let parameters = {
+        _id: id,
+        password: "$P$BllpJAyXJj.62cTsWXkDDtfYoAJ/vS1",
+        from: String(time)
+      }
 
-    this.http.get(this.config.wsURL + "/persons/addTimePerson.php", parameters, {}) 
-      .then(data => {
-        alert("success");
-      })
-      .catch(err => {
-        alert(err);
-      });
+      this.http.get(this.config.wsURL + "/persons/addTimePerson.php", parameters, {}) 
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+      }
   }
 }
