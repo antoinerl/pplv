@@ -62,8 +62,8 @@ export class DateProvider {
           resolve(data);
         })
         .catch(err => {
-          reject(err);
+          console.log(err);
         });
-      }
+    });
   }
 }

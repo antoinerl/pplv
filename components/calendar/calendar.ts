@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
 import { RecurrentMenuComponent } from '../recurrent-menu/recurrent-menu';
@@ -16,6 +16,7 @@ import { DateProvider } from '../../providers/date/date';
   templateUrl: 'calendar.html',
 })
 export class CalendarComponent {
+  @ViewChild('iframe') iframe: ElementRef;
 
   selectedDate: number;
   idUser: number;
@@ -119,7 +120,7 @@ export class CalendarComponent {
     }
 
     displayAlert(data) {
-      var win = document.getElementById("iframe").contentWindow;
+      let win =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
       alert(win);
       win.postMessage(data, "*");
     }
