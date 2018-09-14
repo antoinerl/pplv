@@ -36,7 +36,15 @@ calendar {
      @media screen and (max-width: 1000px) {
         ion-calendar-month .days {
             margin: 3px 0;
-        }  
+        }
+
+	div.hours {
+		width: 100%;
+	}
+
+	div.hours .hour {
+		margin: 2px;
+	}	
      }
 
     ion-calendar-month button.days-btn {
