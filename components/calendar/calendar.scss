@@ -7,8 +7,8 @@ calendar {
 	div.hours {
 		flex-wrap: wrap;
 	    display: flex;
-        width: 90%;
         margin: auto;
+        width: 800px;
 	}
 
 	span.hour {
@@ -17,7 +17,6 @@ calendar {
 	    font-size: 1.1em;
 	    margin: 3px 1px;
 	    line-height: 2.5em;
-	    min-width: 6vw;
         margin: 5px;
 	    white-space: nowrap;
 	    text-align: center;
@@ -25,8 +24,8 @@ calendar {
 	}
 
 	.empty-ranges {
-        background-color: color($colors, warning, base) !important;
-        border-color: color($colors, warning, base) !important;
+        background-color: color($colors, secondary, base) !important;
+        border-color: color($colors, secondary, base) !important;
         color: #fff !important;
     }
 
@@ -62,12 +61,12 @@ calendar {
         background: #e5e5e5;
     }
 
-    #valid {
+    .valid {
         margin: 20px auto;
     }
 
     div.hours.disabled > .hour,
-    #valid.disabled {
+    .valid.disabled {
         background: #e5e5e5 !important;
         color: #c3c3c3 !important;
         cursor: unset !important;

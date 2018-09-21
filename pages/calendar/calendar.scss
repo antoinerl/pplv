@@ -1,5 +1,30 @@
 page-calendar {
     .scroll-content {
         overflow:hidden;
+        display: flex;
+    }
+
+    calendar {
+        margin: auto;
+    }
+
+    calendar.anonymous > div {
+        flex-direction : row;
+        width: 80%;
+        margin: auto;
+    }
+
+    calendar.anonymous .col2 {
+        display: flex;
+        flex-direction: column;
+        margin-top: 85px;
+    }
+
+    calendar.anonymous .col2 > * {
+        margin: auto;
+    }
+
+    calendar.anonymous div.hours {
+        width: 336px;
     }
 }

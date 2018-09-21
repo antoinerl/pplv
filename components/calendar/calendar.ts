@@ -47,6 +47,7 @@ export class CalendarComponent {
 
 	onChange($event) {
     console.log($event);
+    console.log($(".on-selected"));
     this.dateProvider.setSelectedDate($event.unix());
     this.selectedDate = this.dateProvider.getSelectedDate();
     
@@ -64,7 +65,7 @@ export class CalendarComponent {
     this.dateProvider.setSelectedHour(hour);
     $(".hour").removeClass("selected");
     $("#"+hour).addClass("selected");
-    $("#valid").removeClass("disabled");
+    $(".valid").removeClass("disabled");
   }
 
   valid() {
@@ -76,6 +77,8 @@ export class CalendarComponent {
     this.dateProvider.valid(this.idUser).then(data => {
           $(".hour").removeClass("selected");
           $(".on-selected").removeClass("on-selected");
+          $(".hours").addClass("disabled");
+          $(".valid").addClass("disabled");
           this.displayAlert(data);
         })
         .catch(err => {

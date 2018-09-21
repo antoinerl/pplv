@@ -7,10 +7,15 @@
               [format]="'YYYY-MM-DD'">
     </ion-calendar>
 
-    <div class="hours">
-    	<span class="hour" *ngFor="let hour of hours" (click)="setHour(hour)" attr.id="{{hour}}">{{hour | hour}}</span>
+    <div class="col2">
+      <div class="hours">
+    	   <span class="hour" *ngFor="let hour of hours" (click)="setHour(hour)" attr.id="{{hour}}">{{hour | hour}}</span>
+      </div>
+
+      <button *ngIf="idUser == '1'" ion-button primary class="valid disabled" id="valid-once" (click)="valid()" >Je m'inscris</button>
     </div>
+
     <recurrent-menu [selectedDate]=selectedDate></recurrent-menu>
 
-    <button ion-button secondary class="disabled" id="valid" (click)="valid()">Je m'inscris</button>
+    <button *ngIf="idUser != '1'" ion-button primary class="valid disabled" id="valid-recur" (click)="valid()">Je m'inscris</button>
 </div>
