@@ -12,7 +12,12 @@
 
 </ion-header>
 
-
 <ion-content padding>
-    <calendar [id]="id" [recur]="false"[class]="anonymousClass"></calendar>
+    <h1 *ngIf="header == 'false'">
+        Je m'inscris pour une heure
+    </h1>
+
+    <div id="calendar">
+        <calendar [id]="id" [recur]="false"[class]="anonymousClass"></calendar>
+    </div>
 </ion-content>

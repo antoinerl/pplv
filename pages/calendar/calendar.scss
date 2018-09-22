@@ -2,6 +2,16 @@ page-calendar {
     .scroll-content {
         overflow:hidden;
         display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .scroll-content > * {
+        margin: auto !important;
+    }
+
+    h1 {
+        margin: auto;
     }
 
     calendar {
