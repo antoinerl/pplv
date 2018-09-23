@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { RecurrentMenuComponent } from '../recurrent-menu/recurrent-menu';
 import * as $ from "jquery";
 import { DateProvider } from '../../providers/date/date';
+import { PrayersProvider } from '../../providers/prayers/prayers';
 
 /**
  * Generated class for the CalendarComponent component.
@@ -26,8 +27,15 @@ export class CalendarComponent {
 	hours: number[] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
   optionsMulti: any;
 
-	constructor(private dateProvider : DateProvider) {
+  _daysConfig: DayConfig[];
+
+	constructor(private dateProvider : DateProvider, private prayersProvider : PrayersProvider) {
+    this.init("201809", true);
 	}
+
+  init(monthIndex, open) {
+    this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => this.displayPrayers(prayers, open));
+  }
 
   @Input()
   set id(id: number) {
@@ -39,46 +47,72 @@ export class CalendarComponent {
     this.recurrence = recur;
   }
 
-	ngAfterViewInit(){
-		this.openCalendar();
-    $(".hours").addClass("disabled");
+  displayPrayers(prayers, open) {
+    this.initHours();
+
+    if (open)
+      this.dates = [];
+
+    this._daysConfig = this.selectDates();
+       
+    for (let el in prayers) {
+      let _date = this.toDate(prayers[el].dayindex);
+
+      this._daysConfig.push({
+        date: _date,
+        /*subTitle: '0',*/
+        cssClass: 'empty-ranges'
+      });
+    }
+
+    this.openCalendar();
+    
     $(".on-selected").addClass("already-selected");
-	}
+    $(".on-selected").removeClass("on-selected");
+  }
 
 	onChange($event) {
-    console.log($event);
-    console.log($(".on-selected"));
     this.dateProvider.setSelectedDate($event.unix());
     this.selectedDate = this.dateProvider.getSelectedDate();
     
-	  //$(".hours").show();
+    this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours(data));
+
+	}  
+
+  monthChange($event) {
+    this.init($event.newMonth.years+("0"+$event.newMonth.months).slice(-2), false);
+  }
+
+  openHours(hours) {
+    $(".hour").removeClass("empty-ranges");
+    for (let el in hours) {
+      let time = hours[el].time;
+      $("#hour_"+time+".hour").addClass("empty-ranges");
+      $("#hour_"+time+" .number").text(hours[el].count);
+    }
+      
+
     $(".hours").removeClass("disabled");
     if (this.recurrence)
       $("recurrent-menu").show();
-	}  
+  }
 
   setHour(hour: number) {
-    console.log(this.dateProvider.getSelectedDate());
     if (!this.dateProvider.getSelectedDate())
       return;
-    console.log(hour);
+
     this.dateProvider.setSelectedHour(hour);
     $(".hour").removeClass("selected");
-    $("#"+hour).addClass("selected");
+    $("#hour_"+hour).addClass("selected");
     $(".valid").removeClass("disabled");
   }
 
   valid() {
-    if (!this.dateProvider.getSelectedDate() || !this.dateProvider.getSelectedHour())
-      return;
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 
     this.dateProvider.valid(this.idUser).then(data => {
-          $(".hour").removeClass("selected");
-          $(".on-selected").removeClass("on-selected");
-          $(".hours").addClass("disabled");
-          $(".valid").addClass("disabled");
+          this.init("201809", false);
           this.displayAlert(data);
         })
         .catch(err => {
@@ -86,19 +120,7 @@ export class CalendarComponent {
         });;
   }
 
-	openCalendar() {
-
-      //this.dates = ['2018-09-28', '2018-09-29', '2018-10-01'];
-      this.dates = [];
-      let _daysConfig: DayConfig[] = this.selectDates();
-
-      /*
-      _daysConfig.push({
-        date: new Date(2018, 8, 26),
-        subTitle: '0',
-        cssClass: 'empty-ranges'
-      });
-      */
+	openCalendar() {    
       
       this.optionsMulti = {
         monthFormat: 'MMMM YYYY',
@@ -106,25 +128,40 @@ export class CalendarComponent {
         weekdays: ['D', 'L', 'Ma', 'Me', 'J', 'V', 'S'],
         weekStart: 1,
         pickMode: 'single',
-        daysConfig: _daysConfig
+        daysConfig: this._daysConfig,
       };
+  }
+
+  initHours() {
+    $(".hours").addClass("disabled");
+    $(".hour").removeClass("empty-ranges");
+    $(".hour").removeClass("selected");
+  }
+
+  selectDates(): DayConfig[] {
+    let _daysConfig: DayConfig[] = [];
+
+    for (let d of this.dates) {
+        _daysConfig.push({
+        date: new Date(d),
+        cssClass: 'already-selected'
+      });
     }
 
-    selectDates(): DayConfig[] {
-      let _daysConfig: DayConfig[] = [];
+    return _daysConfig;
+  }
 
-      for (let d of this.dates) {
-          _daysConfig.push({
-          date: new Date(d),
-          cssClass: 'already-selected'
-        });
-      }
+  displayAlert(data) {
+    parent.postMessage(data, "*");
+  }
 
-      return _daysConfig;
-    }
+  toDate(dayindex): Date {
+    return new Date(dayindex.substr(0,4)+"-"+dayindex.substr(4,2)+"-"+dayindex.substr(6,2));
+  }
 
-    displayAlert(data) {
-      parent.postMessage(data, "*");
-    }
+  toDayindex(unix) : string {
+    let d = new Date(unix*1000);
+    return d.getFullYear() + ("0"+(d.getMonth()+1)).slice(-2) + ("0" + d.getDate()).slice(-2);  
+  }
 
 }

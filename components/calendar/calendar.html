@@ -2,6 +2,7 @@
 <div>
  <ion-calendar [(ngModel)]="dates"
               (onChange)="onChange($event)"
+              (monthChange)="monthChange($event)"
               [options]="optionsMulti"
               [type]="type"
               [format]="'YYYY-MM-DD'">
@@ -9,7 +10,10 @@
 
     <div class="col2">
       <div class="hours">
-    	   <span class="hour" *ngFor="let hour of hours" (click)="setHour(hour)" attr.id="{{hour}}">{{hour | hour}}</span>
+    	   <span class="hour" *ngFor="let hour of hours" (click)="setHour(hour)" attr.id="hour_{{hour}}">
+            {{hour | hour}}
+            <span class="number"></span>
+          </span>
       </div>
 
       <button *ngIf="idUser == '1'" ion-button primary class="valid disabled" id="valid-once" (click)="valid()" >Je m'inscris</button>

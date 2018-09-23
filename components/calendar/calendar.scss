@@ -22,12 +22,14 @@ calendar {
 	    text-align: center;
 	    cursor: pointer;
         width: 45px;
+        position: relative;
 	}
 
 	.empty-ranges {
         background-color: color($colors, secondary, base) !important;
         border-color: color($colors, secondary, base) !important;
         color: #fff !important;
+        opacity: 0.4;
     }
 
      ion-calendar .empty-ranges {
@@ -43,13 +45,13 @@ calendar {
             margin: 3px 0;
         }
 
-	div.hours {
-		width: 100%;
-	}
+    	div.hours {
+    		width: 100%;
+    	}
 
-	div.hours .hour {
-		margin: 2px;
-	}	
+    	div.hours .hour {
+    		margin: 2px;
+    	}	
      }
 
     ion-calendar-month button.days-btn {
@@ -81,6 +83,20 @@ calendar {
     .selected,
     .on-selected {
     	background-color: lighten( color($colors, primary, base), 25%) !important;
+        opacity: 1;
+    }
+
+    .hour .number {
+        display: none;
+        position: absolute;
+        font-size: 0.8em;
+        top: -1em;
+        right: -0.7em;
+        background-color: #b2b2b2;
+        line-height: 1em;
+        width: 1.8em;
+        padding: 5px;
+        border-radius: 50px;
     }
 
     .already-selected {
@@ -106,6 +122,10 @@ calendar {
 
     calendar .button {
         margin: 20px auto;
+    }
+
+    .empty-ranges .number {
+        display: inline !important;
     }
 
 }

@@ -23,6 +23,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WpProvider } from '../providers/wp/wp';
 import { DateProvider } from '../providers/date/date';
+import { PrayersProvider } from '../providers/prayers/prayers';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { DateProvider } from '../providers/date/date';
     Network,
     WpProvider,
     { provide: APP_CONFIG, useValue: AppConfig },
-    DateProvider
+    DateProvider,
+    PrayersProvider
   ]
 })
 export class AppModule {}
