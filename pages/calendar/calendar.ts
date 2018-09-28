@@ -18,17 +18,10 @@ export class CalendarPage {
 
     private id:string;
     private header:boolean;
-    private date:string;
-
-    private anonymousClass: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.id = navParams.get('id');
     this.header = navParams.get('header');
-    this.date = navParams.get('date');
-
-    if (this.id == "1")
-      this.anonymousClass = "anonymous";
   }
 
   ionViewDidLoad() {

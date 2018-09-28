@@ -3,6 +3,8 @@ import { Injectable, Inject } from '@angular/core';
 
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 
+import { UserProvider } from '../user/user';
+
 /*
   Generated class for the DateProvider provider.
 
@@ -18,7 +20,8 @@ export class DateProvider {
 
   constructor(
         @Inject(APP_CONFIG) private config: IAppConfig,
-        public http: HTTP
+        public http: HTTP,
+        private userProvider: UserProvider
     ) {
     
   }
@@ -51,9 +54,11 @@ export class DateProvider {
     return new Promise( (resolve, reject) => {
 
       let time = this.date + this.hour*3600;
+      let user = this.userProvider.getUser();
+
       let parameters = {
-        _id: id,
-        password: "$P$BllpJAyXJj.62cTsWXkDDtfYoAJ/vS1",
+        _id: user.ID,
+        password: user.user_pass,
         from: String(time)
       }
 

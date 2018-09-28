@@ -24,6 +24,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { WpProvider } from '../providers/wp/wp';
 import { DateProvider } from '../providers/date/date';
 import { PrayersProvider } from '../providers/prayers/prayers';
+import { UserProvider } from '../providers/user/user';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { PrayersProvider } from '../providers/prayers/prayers';
      links: [
       { component: HomePage, name: 'Home', segment: 'home' },
       { component: ListPage, name: 'my-page', segment: 'some-path/:param' },
-      { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:date/:header' }
+      { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:header' }
 
     ]
   }),
@@ -69,7 +70,9 @@ import { PrayersProvider } from '../providers/prayers/prayers';
     WpProvider,
     { provide: APP_CONFIG, useValue: AppConfig },
     DateProvider,
-    PrayersProvider
+    PrayersProvider,
+    UserProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

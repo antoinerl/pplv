@@ -28,7 +28,7 @@ export class RecurrentMenuComponent {
 
   @Input()
   set selectedDate(selectedDate : number) {
-  	var tmp = moment.unix(selectedDate);
+  	var tmp = moment(selectedDate*1000);
   	console.log(selectedDate);
   	this.date = tmp.format("dddd D MMMM YYYY");
   	this.day = tmp.format("dddd");
@@ -37,8 +37,10 @@ export class RecurrentMenuComponent {
 
   setSelectedRecurrence(recur : number) {
   	this.dateProvider.setSelectedRecurrence(recur);
+    /*
   	var msg = this.msgMD.create(ValidScheduleComponent);
     msg.present();
+    */
   }
 
 

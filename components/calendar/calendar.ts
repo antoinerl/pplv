@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
+import 'moment-timezone';
 import { RecurrentMenuComponent } from '../recurrent-menu/recurrent-menu';
 import * as $ from "jquery";
 import { DateProvider } from '../../providers/date/date';
 import { PrayersProvider } from '../../providers/prayers/prayers';
+import { UserProvider } from '../../providers/user/user';
 
 /**
  * Generated class for the CalendarComponent component.
@@ -17,9 +19,9 @@ import { PrayersProvider } from '../../providers/prayers/prayers';
   templateUrl: 'calendar.html',
 })
 export class CalendarComponent {
+  idUser: number;
 
   selectedDate: number;
-  idUser: number;
   recurrence: boolean = true;
 
   dates: string[];
@@ -27,14 +29,18 @@ export class CalendarComponent {
 	hours: number[] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
   optionsMulti: any;
 
-  _daysConfig: DayConfig[];
+  _daysConfig: DayConfig[] = [];
 
-	constructor(private dateProvider : DateProvider, private prayersProvider : PrayersProvider) {
-    this.init("201809", true);
+	constructor(private dateProvider : DateProvider, private prayersProvider : PrayersProvider, private userProvider: UserProvider) {
+    this.userProvider.loadUser("antoinerdl@gmail.com", "toto").then(
+      (data) => { this.init(moment().format("YYYYMM")); }
+    );
 	}
 
-  init(monthIndex, open) {
-    this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => this.displayPrayers(prayers, open));
+  init(monthIndex) {
+      this.prepareUserSlots();
+      this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => { this.displayPrayers(prayers); });
+    
   }
 
   @Input()
@@ -47,13 +53,18 @@ export class CalendarComponent {
     this.recurrence = recur;
   }
 
-  displayPrayers(prayers, open) {
+  prepareUserSlots() {
+    let slots = this.userProvider.getUser().slots;
+    for (let slot in slots) {
+      this._daysConfig.push({
+            date: new Date(parseInt(slots[slot])*1000),
+            cssClass: 'already-selected'
+        });
+    }
+  }
+
+  displayPrayers(prayers) {
     this.initHours();
-
-    if (open)
-      this.dates = [];
-
-    this._daysConfig = this.selectDates();
        
     for (let el in prayers) {
       let _date = this.toDate(prayers[el].dayindex);
@@ -75,15 +86,15 @@ export class CalendarComponent {
     this.dateProvider.setSelectedDate($event.unix());
     this.selectedDate = this.dateProvider.getSelectedDate();
     
-    this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours(data));
+    this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours($event.unix(), data));
 
 	}  
 
   monthChange($event) {
-    this.init($event.newMonth.years+("0"+$event.newMonth.months).slice(-2), false);
+    this.init($event.newMonth.years+("0"+$event.newMonth.months).slice(-2));
   }
 
-  openHours(hours) {
+  openHours(date, hours) {
     $(".hour").removeClass("empty-ranges");
     for (let el in hours) {
       let time = hours[el].time;
@@ -91,6 +102,14 @@ export class CalendarComponent {
       $("#hour_"+time+" .number").text(hours[el].count);
     }
       
+    let slots = this.userProvider.getUser().slots;
+    for (let slot in slots) {
+      let time = slots[slot];
+      if (time >= date && time < date+24*3600) {
+        let hour = moment(time*1000).format("H");        
+        $("#hour_"+hour+".hour").addClass("already-selected");
+      }
+    }
 
     $(".hours").removeClass("disabled");
     if (this.recurrence)
@@ -112,7 +131,7 @@ export class CalendarComponent {
       return;
 
     this.dateProvider.valid(this.idUser).then(data => {
-          this.init("201809", false);
+          this.init(moment().format("YYYYMM"));
           this.displayAlert(data);
         })
         .catch(err => {
