@@ -1,21 +1,21 @@
 <!-- Generated template for the RecurrentMenuComponent component -->
 <div>
 
-    <ion-list radio-group [(ngModel)]="selectedRecurrence" (ionChange)="setSelectedRecurrence($event)" disabled>
+    <ion-list radio-group [(ngModel)]="selectedRecurrence" (ionChange)="setSelectedRecurrence($event)" [disabled]="!isEnabled">
 
       <ion-item>
         <ion-label>Juste le {{date}}</ion-label>
-        <ion-radio value="1"></ion-radio>
+        <ion-radio [disabled]="!isEnabled" value="1"></ion-radio>
       </ion-item>
 
       <ion-item>
         <ion-label>Tous les {{day}}s</ion-label>
-        <ion-radio value="2"></ion-radio>
+        <ion-radio [disabled]="!isEnabled" value="2"></ion-radio>
       </ion-item>
 
       <ion-item>
         <ion-label>Tous les {{nth}}s {{day}}s du mois</ion-label>
-        <ion-radio value="3"></ion-radio>
+        <ion-radio [disabled]="!isEnabled" value="3"></ion-radio>
       </ion-item>
 
     </ion-list>

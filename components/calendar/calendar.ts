@@ -23,6 +23,9 @@ export class CalendarComponent {
 
   selectedDate: number;
   recurrence: boolean = true;
+  recurrentEnabled: boolean = false;
+
+  reminder: boolean = false;
 
   dates: string[];
 	type: 'moment'; // 'string' | 'js-date' | 'moment' | 'time' | 'object';
@@ -95,6 +98,7 @@ export class CalendarComponent {
   }
 
   openHours(date, hours) {
+
     $(".hour").removeClass("empty-ranges");
     for (let el in hours) {
       let time = hours[el].time;
@@ -111,9 +115,7 @@ export class CalendarComponent {
       }
     }
 
-    $(".hours").removeClass("disabled");
-    if (this.recurrence)
-      $("recurrent-menu").show();
+    $(".slots").removeClass("disabled");
   }
 
   setHour(hour: number) {
@@ -123,7 +125,17 @@ export class CalendarComponent {
     this.dateProvider.setSelectedHour(hour);
     $(".hour").removeClass("selected");
     $("#hour_"+hour).addClass("selected");
-    $(".valid").removeClass("disabled");
+    this.recurrentEnabled = true;
+    $(".valid, .toggleReminder").removeClass("disabled");
+  }
+
+  setReminder(value) {
+  console.log(value);
+    if (value) {
+      $(".selectReminder").removeClass("disabled");
+    } else {
+      $(".selectReminder").addClass("disabled");
+    }
   }
 
   valid() {
@@ -152,9 +164,10 @@ export class CalendarComponent {
   }
 
   initHours() {
-    $(".hours").addClass("disabled");
+  /*
     $(".hour").removeClass("empty-ranges");
     $(".hour").removeClass("selected");
+  */
   }
 
   selectDates(): DayConfig[] {

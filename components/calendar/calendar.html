@@ -10,7 +10,7 @@
               [format]="'YYYY-MM-DD'">
     </ion-calendar>
 
-    <div class="slots">
+    <div class="slots disabled">
         <h2>Créneau horaire</h2>
         <div class="hours">
     	   <span class="hour" *ngFor="let hour of hours" (click)="setHour(hour)" attr.id="hour_{{hour}}">
@@ -22,12 +22,12 @@
   </div>
   <div class="col2">
     <h2>Inscription</h2>
-    <recurrent-menu [selectedDate]=selectedDate></recurrent-menu>
+    <recurrent-menu [selectedDate]=selectedDate [enabled]=recurrentEnabled></recurrent-menu>
 
     <div>
       <ion-item>
         <ion-label class="toggleReminder disabled">Recevoir un rappel</ion-label>
-        <ion-toggle [(ngModel)]="reminder"></ion-toggle>
+        <ion-toggle [(ngModel)]="reminder"  (ngModelChange)="setReminder(reminder)"></ion-toggle>
       </ion-item>
       <ion-item *ngIf="mobile">
         <ion-label>Avant par email</ion-label>

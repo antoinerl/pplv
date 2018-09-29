@@ -16,6 +16,7 @@ import * as moment from 'moment';
 })
 export class RecurrentMenuComponent {
   selectedRecurrence: number = 1;
+  isEnabled: boolean = false;
 
 	nth_weekday: string[] = ["premier", "deuxième", "troisième", "quatrième", "cinquième"];
 
@@ -33,6 +34,11 @@ export class RecurrentMenuComponent {
   	this.date = tmp.format("dddd D MMMM YYYY");
   	this.day = tmp.format("dddd");
   	this.nth = this.nth_weekday[Math.floor(tmp.toObject().date / 7)];
+  }
+
+  @Input()
+  set enabled(recurrentEnabled : boolean) {
+    this.isEnabled = recurrentEnabled;
   }
 
   setSelectedRecurrence(recur) {
