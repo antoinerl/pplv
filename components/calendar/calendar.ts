@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
 import 'moment-timezone';
@@ -34,23 +35,23 @@ export class CalendarComponent {
   _daysConfig: DayConfig[] = [];
 
 	constructor(
+        private platform: Platform,
         private dateProvider : DateProvider, 
         private prayersProvider : PrayersProvider, 
         private userProvider: UserProvider) {
 
-    if (!this.userProvider.getUser().slots) {
-    console.log("1");
-      this.userProvider.getSlots().then(data => {
-      console.log("2");
-        this.init(moment().format("YYYYMM"));
-      });
-    } else {
-      this.init(moment().format("YYYYMM"));
-    }
+          this.platform.ready().then( (readySource) => {
+            if (!this.userProvider.getUser().slots) {
+              this.userProvider.getSlots().then(data => {
+                this.init(moment().format("YYYYMM"));
+              });
+            } else {
+              this.init(moment().format("YYYYMM"));
+            }
+          });
 	}
 
   init(monthIndex) {
-  console.log("3");
       this.recurrentEnabled = false;
       $(".hour").removeClass("selected");
       $(".hour").removeClass("already-selected");
@@ -58,9 +59,9 @@ export class CalendarComponent {
       $(".hour").removeClass("selected");
       $(".valid, .toggleReminder").addClass("disabled");
       $(".slots").addClass("disabled");
-console.log("4");
+
       this.prepareUserSlots();
-      console.log("5");
+      
       this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => { this.displayPrayers(prayers); });
     
   }
@@ -81,9 +82,9 @@ console.log("4");
   }
 
   displayPrayers(prayers) {
-  console.log("6");
+  
     this.initHours();
-       console.log("7");
+      
     for (let el in prayers) {
       let _date = this.toDate(prayers[el].dayindex);
 
@@ -93,9 +94,9 @@ console.log("4");
         cssClass: 'empty-ranges'
       });
     }
-console.log("8");
+
     this.openCalendar();
-    console.log("9");
+    
     $(".on-selected").addClass("already-selected");
     $(".on-selected").removeClass("on-selected");
   }

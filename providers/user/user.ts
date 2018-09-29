@@ -31,10 +31,11 @@ export class UserProvider {
         id: this.user.ID,
         token: this.user.token
     }
-
+    
     return new Promise(resolve => {
         this.http.get(this.config.wsURL + "/persons/getSlots.php", parameters, {}).then(data => {
           this.user.slots = JSON.parse(data.data);
+          console.log("ok");
           resolve("ok");
         }, err => {
           console.log(err);
