@@ -43,7 +43,7 @@ import { UserProvider } from '../providers/user/user';
      links: [
       { component: HomePage, name: 'Home', segment: 'home' },
       { component: ListPage, name: 'my-page', segment: 'some-path/:param' },
-      { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:header' }
+      { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:token/:header' }
 
     ]
   }),

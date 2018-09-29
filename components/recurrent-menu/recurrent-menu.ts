@@ -33,7 +33,7 @@ export class RecurrentMenuComponent {
   	var tmp = moment(selectedDate*1000);
   	this.date = tmp.format("dddd D MMMM YYYY");
   	this.day = tmp.format("dddd");
-  	this.nth = this.nth_weekday[Math.floor(tmp.toObject().date / 7)];
+  	this.nth = this.nth_weekday[Math.floor( (tmp.toObject().date-1) / 7)];
   }
 
   @Input()
@@ -43,10 +43,6 @@ export class RecurrentMenuComponent {
 
   setSelectedRecurrence(recur) {
   	this.dateProvider.setSelectedRecurrence(recur);
-    /*
-  	var msg = this.msgMD.create(ValidScheduleComponent);
-    msg.present();
-    */
   }
 
 

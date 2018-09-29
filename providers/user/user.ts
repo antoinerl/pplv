@@ -22,16 +22,20 @@ export class UserProvider {
     return this.user;
   }
 
-  loadUser(email, password) {
+  setUser(u) {
+    this.user = u;
+  }
+
+  getSlots() {
     let parameters = {
-        email: email,
-        password: password
+        id: this.user.ID,
+        token: this.user.token
     }
 
     return new Promise(resolve => {
-        this.http.get(this.config.wsURL + "/persons/getPerson.php", parameters, {}).then(data => {
-          this.user = JSON.parse(data.data).data;
-          resolve(data.data);
+        this.http.get(this.config.wsURL + "/persons/getSlots.php", parameters, {}).then(data => {
+          this.user.slots = JSON.parse(data.data);
+          resolve("ok");
         }, err => {
           console.log(err);
         });

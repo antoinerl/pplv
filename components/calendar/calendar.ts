@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
+import 'moment-timezone';
 import { RecurrentMenuComponent } from '../recurrent-menu/recurrent-menu';
 import * as $ from "jquery";
 import { DateProvider } from '../../providers/date/date';
@@ -18,7 +19,6 @@ import { UserProvider } from '../../providers/user/user';
   templateUrl: 'calendar.html',
 })
 export class CalendarComponent {
-  idUser: number;
 
   selectedDate: number;
   recurrence: boolean = true;
@@ -33,21 +33,24 @@ export class CalendarComponent {
 
   _daysConfig: DayConfig[] = [];
 
-	constructor(private dateProvider : DateProvider, private prayersProvider : PrayersProvider, private userProvider: UserProvider) {
-    this.userProvider.loadUser("antoinerdl@gmail.com", "toto").then(
-      (data) => { this.init(moment().format("YYYYMM")); }
-    );
+	constructor(
+        private dateProvider : DateProvider, 
+        private prayersProvider : PrayersProvider, 
+        private userProvider: UserProvider) {
+
+    if (!this.userProvider.getUser().slots) {
+      this.userProvider.getSlots().then(data => {
+        this.init(moment().format("YYYYMM"));
+      });
+    } else {
+      this.init(moment().format("YYYYMM"));
+    }
 	}
 
   init(monthIndex) {
       this.prepareUserSlots();
       this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => { this.displayPrayers(prayers); });
     
-  }
-
-  @Input()
-  set id(id: number) {
-    this.idUser = id;
   }
 
   @Input()
@@ -85,7 +88,9 @@ export class CalendarComponent {
   }
 
 	onChange($event) {
-    this.dateProvider.setSelectedDate($event.unix());
+    let unixUTC = moment.tz($event.format("YYYY-MM-DD"), "UTC").unix();
+    console.log(unixUTC);
+    this.dateProvider.setSelectedDate(unixUTC);
     this.selectedDate = this.dateProvider.getSelectedDate();
 
     this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours($event.unix(), data));
@@ -99,6 +104,8 @@ export class CalendarComponent {
   openHours(date, hours) {
 
     $(".hour").removeClass("empty-ranges");
+    $(".hour").removeClass("already-selected");
+
     for (let el in hours) {
       let time = hours[el].time;
       $("#hour_"+time+".hour").addClass("empty-ranges");
@@ -109,7 +116,7 @@ export class CalendarComponent {
     for (let slot in slots) {
       let time = slots[slot];
       if (time >= date && time < date+24*3600) {
-        let hour = moment(time*1000).format("H");        
+        let hour = moment(time*1000).utc().format("H");        
         $("#hour_"+hour+".hour").addClass("already-selected");
       }
     }
@@ -129,7 +136,6 @@ export class CalendarComponent {
   }
 
   setReminder(value) {
-  console.log(value);
     if (value) {
       $(".selectReminder").removeClass("disabled");
     } else {
@@ -141,7 +147,7 @@ export class CalendarComponent {
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 
-    this.dateProvider.valid(this.idUser).then(data => {
+    this.dateProvider.valid().then(data => {
           this.init(moment().format("YYYYMM"));
           this.displayAlert(data);
         })

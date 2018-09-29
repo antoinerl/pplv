@@ -1,6 +1,6 @@
 import { HTTP } from '@ionic-native/http';
 import { Injectable, Inject } from '@angular/core';
-
+import * as moment from 'moment';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 
 import { UserProvider } from '../user/user';
@@ -50,17 +50,27 @@ export class DateProvider {
   	return this.recur;
   }
 
-  valid(id): Promise <any> {
+  valid(): Promise <any> {
     return new Promise( (resolve, reject) => {
 
       let time = this.date + this.hour*3600;
+      var tmp = moment.unix(this.date);
+      let nth = "";
+      if (this.recur == 3)
+        nth = String(Math.floor( (tmp.toObject().date-1) / 7) + 1);
+      let day_of_week = "";
+      if (this.recur > 1)
+        day_of_week = String(tmp.day());
+
       let user = this.userProvider.getUser();
 
       let parameters = {
         _id: user.ID,
-        password: user.user_pass,
-        from: String(time)
-      }
+        password: user.token,
+        from: String(time),
+        nth: nth,
+        day_of_week: day_of_week
+      }      
 
       this.http.get(this.config.wsURL + "/persons/addTimePerson.php", parameters, {}) 
         .then(data => {
