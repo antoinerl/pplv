@@ -146,7 +146,8 @@ export class CalendarComponent {
     $(".hour").removeClass("selected");
     $("#hour_"+hour).addClass("selected");
     this.recurrentEnabled = true;
-    $(".valid, .toggleReminder").removeClass("disabled");
+    //$(".valid, .toggleReminder").removeClass("disabled");
+    $(".valid").removeClass("disabled");
   }
 
   setReminder(value) {
