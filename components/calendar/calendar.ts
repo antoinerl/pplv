@@ -85,7 +85,7 @@ export class CalendarComponent {
 	onChange($event) {
     this.dateProvider.setSelectedDate($event.unix());
     this.selectedDate = this.dateProvider.getSelectedDate();
-    
+
     this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours($event.unix(), data));
 
 	}  

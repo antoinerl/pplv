@@ -1,18 +1,22 @@
 <!-- Generated template for the RecurrentMenuComponent component -->
 <div>
-	<fieldset  (click)="setSelectedRecurrence(1)">
-  		<input id="just" name="recurrence" type="radio" value="1">
-  		<label for="just">Juste le {{date}}</label>
-      <div></div>
-  	</fieldset>
-  	<fieldset (click)="setSelectedRecurrence(2)">
-  		<input id="all" name="recurrence" type="radio" value="2">
-  		<label for="all">Tous les {{day}}s</label>
-      <div></div>
-  	</fieldset>
-  	<fieldset  (click)="setSelectedRecurrence(3)">
-  		<input id="nth" name="recurrence" type="radio" value="3">
-  		<label for="nth">Tous les {{nth}}s {{day}}s du mois</label>
-      <div></div>
-  	</fieldset>
+
+    <ion-list radio-group [(ngModel)]="selectedRecurrence" (ionChange)="setSelectedRecurrence($event)" disabled>
+
+      <ion-item>
+        <ion-label>Juste le {{date}}</ion-label>
+        <ion-radio value="1"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tous les {{day}}s</ion-label>
+        <ion-radio value="2"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tous les {{nth}}s {{day}}s du mois</ion-label>
+        <ion-radio value="3"></ion-radio>
+      </ion-item>
+
+    </ion-list>
 </div>

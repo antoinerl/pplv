@@ -1,6 +1,8 @@
 <!-- Generated template for the CalendarComponent component -->
 <div>
- <ion-calendar [(ngModel)]="dates"
+  <div class="col1">
+    <h2>Date</h2>
+    <ion-calendar [(ngModel)]="dates"
               (onChange)="onChange($event)"
               (monthChange)="monthChange($event)"
               [options]="optionsMulti"
@@ -8,14 +10,46 @@
               [format]="'YYYY-MM-DD'">
     </ion-calendar>
 
-    <div class="hours">
-  	   <span class="hour" *ngFor="let hour of hours" (click)="setHour(hour)" attr.id="hour_{{hour}}">
-          {{hour | hour}}
-          <span class="number"></span>
-        </span>
+    <div class="slots">
+        <h2>Créneau horaire</h2>
+        <div class="hours">
+    	   <span class="hour" *ngFor="let hour of hours" (click)="setHour(hour)" attr.id="hour_{{hour}}">
+            {{hour | hour}}
+            <span class="number"></span>
+          </span>
+        </div>
     </div>
-
+  </div>
+  <div class="col2">
+    <h2>Inscription</h2>
     <recurrent-menu [selectedDate]=selectedDate></recurrent-menu>
 
-    <button ion-button primary class="valid disabled" id="valid-recur" (click)="valid()">Je m'inscris</button>
+    <div>
+      <ion-item>
+        <ion-label class="toggleReminder disabled">Recevoir un rappel</ion-label>
+        <ion-toggle [(ngModel)]="reminder"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="mobile">
+        <ion-label>Avant par email</ion-label>
+        <ion-select [(ngModel)]="reminderTime">
+          <ion-option value="15">15 minutes</ion-option>
+          <ion-option value="30">30 minutes</ion-option>
+          <ion-option value="60">1 heure</ion-option>
+          <ion-option value="120">2 heures</ion-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="!mobile" class="selectReminder disabled">
+        <select>
+          <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 heure</option>
+            <option value="120">2 heures</option>
+        </select>
+        <span> avant par email</span>
+      </div>
+
+    </div>
+
+    <button ion-button primary class="valid disabled" id="valid" (click)="valid()">Je m'inscris</button>
+  </div>
 </div>

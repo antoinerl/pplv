@@ -15,6 +15,7 @@ import * as moment from 'moment';
   templateUrl: 'recurrent-menu.html'
 })
 export class RecurrentMenuComponent {
+  selectedRecurrence: number = 1;
 
 	nth_weekday: string[] = ["premier", "deuxième", "troisième", "quatrième", "cinquième"];
 
@@ -23,19 +24,18 @@ export class RecurrentMenuComponent {
   nth: string = "premier";
 
   constructor(private dateProvider : DateProvider, private msgMD: ModalController) {
-
+    
   }
 
   @Input()
   set selectedDate(selectedDate : number) {
   	var tmp = moment(selectedDate*1000);
-  	console.log(selectedDate);
   	this.date = tmp.format("dddd D MMMM YYYY");
   	this.day = tmp.format("dddd");
   	this.nth = this.nth_weekday[Math.floor(tmp.toObject().date / 7)];
   }
 
-  setSelectedRecurrence(recur : number) {
+  setSelectedRecurrence(recur) {
   	this.dateProvider.setSelectedRecurrence(recur);
     /*
   	var msg = this.msgMD.create(ValidScheduleComponent);

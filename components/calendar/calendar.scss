@@ -1,27 +1,69 @@
 calendar {
     > div {
         display: flex;
+        flex-direction: row;
+    }
+
+    > div > * {
+        margin: auto;
+    }
+
+    .col1 {
+        width: 620px;
+    }
+
+    .col2 {
+        width: 380px;
+        margin-left: 20px;
+    }
+
+    .col1, .col2 {
+        margin-top: 60px;
+        display: flex;
         flex-direction: column;
+    }
+    /*
+    .col1 > *, 
+    .col2 > * {
+        margin: auto;
+    }
+    */
+
+    h2 {
+        padding: 20px;
+        background: #fff;
+        width: 100%;
+        text-align: center;
+        margin:0;
+    }
+
+    div.slots {
+        background-color: #fff;
+        margin: 15px auto auto auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    div.slots > * {
+        margin: auto;
     }
 
 	div.hours {
 		flex-wrap: wrap;
 	    display: flex;
-        margin: auto;
-        width: 800px;
+        padding: 5px 30px;
+        width: 100%;
 	}
 
 	span.hour {
 	    //border-color: color($colors, primary, base) !important;
 	    padding: 0px 8px;
-	    font-size: 1.1em;
-	    margin: 3px 1px;
+	    margin: 5px;
 	    line-height: 2.5em;
-        margin: 5px;
 	    white-space: nowrap;
 	    text-align: center;
 	    cursor: pointer;
-        width: 45px;
+        width: 60px;
         position: relative;
 	}
 
@@ -36,27 +78,32 @@ calendar {
      	border-radius: 0 !important;
      }
 
-     ion-calendar-month .days {
-        margin: 7px 0;
-     }
-
-     @media screen and (max-width: 1000px) {
-        ion-calendar-month .days {
-            margin: 3px 0;
-        }
-
-    	div.hours {
-    		width: 100%;
-    	}
-
-    	div.hours .hour {
-    		margin: 2px;
-    	}	
+     ul.week-title {
+        border-top: 1px solid black;
      }
 
     ion-calendar-month button.days-btn {
-        width: 90%;
         border-radius: 0;
+    }
+
+    ion-calendar-month button.days-btn,
+    ion-calendar-month .days {
+        height: 30px;
+        width: 65px !important;
+    }
+
+    span.hour {
+        height: 30px;
+    }
+
+    ion-calendar-month .days {
+        margin: 7px 8px;
+     }
+
+    ion-calendar-month button.days-btn > p,
+    .hour {
+        font-size: 14px;
+        font-weight: bold;
     }
 
     button.days-btn,
@@ -65,14 +112,22 @@ calendar {
     }
 
     .valid {
-        margin: 20px auto;
+        margin: 50px auto !important;
     }
 
     div.hours.disabled > .hour,
-    .valid.disabled {
+    .valid.disabled,
+    .selectReminder.disabled > select {
         background: #e5e5e5 !important;
-        color: #c3c3c3 !important;
         cursor: unset !important;
+        color: #c3c3c3 !important;
+    }
+
+    div.hours.disabled > .hour,
+    .valid.disabled,
+    .selectReminder.disabled > span,
+    .toggleReminder.disabled {
+        color: #c3c3c3 !important;
     }
 
     .on-selected {
@@ -126,6 +181,19 @@ calendar {
 
     .empty-ranges .number {
         display: inline !important;
+    }
+
+    .selectReminder {
+        font-size: 15px;
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .selectReminder select {
+        padding: 5px;
+        margin: 5px 30px;
+        border: 1px solid #ddd;
+        width: 140px;
     }
 
 }
