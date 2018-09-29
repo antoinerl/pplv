@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
-import 'moment-timezone';
 import { RecurrentMenuComponent } from '../recurrent-menu/recurrent-menu';
 import * as $ from "jquery";
 import { DateProvider } from '../../providers/date/date';
