@@ -48,6 +48,14 @@ export class CalendarComponent {
 	}
 
   init(monthIndex) {
+      this.recurrentEnabled = false;
+      $(".hour").removeClass("selected");
+      $(".hour").removeClass("already-selected");
+      $(".hour").removeClass("empty-ranges");
+      $(".hour").removeClass("selected");
+      $(".valid, .toggleReminder").addClass("disabled");
+      $(".slots").addClass("disabled");
+
       this.prepareUserSlots();
       this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => { this.displayPrayers(prayers); });
     
@@ -148,7 +156,9 @@ export class CalendarComponent {
       return;
 
     this.dateProvider.valid().then(data => {
-          this.init(moment().format("YYYYMM"));
+          this.userProvider.getSlots().then(data => {
+            this.init(moment().format("YYYYMM"));
+          });
           this.displayAlert(data);
         })
         .catch(err => {
