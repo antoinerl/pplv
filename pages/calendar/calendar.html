@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding [ngClass]="header == 'false' ? 'iframe' : ''">
     <h1 *ngIf="header == 'false'">
         Je m'inscris pour prier
     </h1>
