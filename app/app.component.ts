@@ -3,12 +3,17 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { UserProvider } from '../providers/user/user';
+
 import { HomePage } from '../pages/home/home';
 import { PrieresPage } from '../pages/prieres/prieres';
 import { TemoignagesPage } from '../pages/temoignages/temoignages';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { CommentPrierPage } from '../pages/comment-prier/comment-prier';
 import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
+
+import { Storage } from '@ionic/storage';
 
 
 import * as moment from 'moment';
@@ -23,17 +28,22 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, params: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen,
+              private storage: Storage,
+              private userProvider: UserProvider) {
+
     this.initializeApp();
 
     this.pages = [
       { title: 'Accueil', component: HomePage, params: {} },
-      { title: 'Calendrier', component: CalendarPage, params: {'id' : '29', 'token' : '$P$BLWRgd0EBCV9BAfIVK1CawMDY9QpQb1', 'header': 'true'} },
+      { title: 'Calendrier', component: CalendarPage, params: {} },
       { title: 'Comment prier ?', component: CommentPrierPage, params: {} },
       { title: 'Prières', component: PrieresPage, params: {'slug' : 'prieres'} },
       { title: 'Témoignages', component: TemoignagesPage, params: {'slug' : 'temoignages'} },
-      /*{ title: 'Mon profil', component: TemoignagesPage, params: {'slug' : 'temoignages'} }*/
-      { title: 'Connexion', component: LoginPage, params: {} }
+      { title: 'Mon profil', component: ProfilePage, params: {} },
+      { title: 'Connexion', component: LoginPage, params: {"close":"true"} }
     ];
 
   }
@@ -45,12 +55,44 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       moment.locale("fr");
+
+      this.storage.get("user").then(data => {
+        if (data === null)
+          return;
+        this.userProvider.setUser(data);
+        /*
+        let connectPage = this.pages.find(e => e.title == "Connexion");
+        connectPage.title = "Mon profil";
+        connectPage.component = ProfilePage;
+        */
+      })
     });
+  }
+
+  display(page) {
+    if (this.userProvider.isLogged() && page.title == "Connexion")
+      return false;
+    
+    if (!this.userProvider.isLogged() && page.title == "Mon profil")
+      return false;
+
+    return true;
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component, page.params);
+    if (page.title == "Connexion")
+      this.nav.push(page.component, page.params);
+    else if (page.title == "Déconnexion") {
+      this.userProvider.setUser(null);
+      this.storage.remove("user");
+      let connectPage = this.pages.find(e => e.title == "Mon Profil");
+        connectPage.title = "Connexion";
+        connectPage.component = LoginPage;
+        connectPage.params = {"close":"true"};
+    } else
+      this.nav.setRoot(page.component, page.params);
+    
   }
 }

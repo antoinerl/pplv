@@ -10,6 +10,7 @@ import { TemoignagesPage } from '../pages/temoignages/temoignages';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { CommentPrierPage } from '../pages/comment-prier/comment-prier';
 import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
 
 import { CalendarModule } from "ion2-calendar";
 import { CalendarComponent } from '../components/calendar/calendar'
@@ -17,9 +18,11 @@ import { RecurrentMenuComponent } from '../components/recurrent-menu/recurrent-m
 import { ValidScheduleComponent } from '../components/valid-schedule/valid-schedule'
 
 import {HourPipe} from '../pipes/hour/hour'; 
+import {DateformatPipe} from '../pipes/dateformat/dateformat'; 
+import {WeekdayPipe} from '../pipes/weekday/weekday'; 
 
 import { APP_CONFIG, AppConfig } from './app.config';
-import { File } from '@ionic-native/file';
+import { IonicStorageModule } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { HTTP } from '@ionic-native/http';
 import { HttpClientModule } from "@angular/common/http";
@@ -41,14 +44,18 @@ import { UserProvider } from '../providers/user/user';
     CommentPrierPage,
     CalendarPage,
     LoginPage,
-	CalendarComponent,
-	RecurrentMenuComponent,
-  ValidScheduleComponent,
-	HourPipe
+    ProfilePage,
+  	CalendarComponent,
+  	RecurrentMenuComponent,
+    ValidScheduleComponent,
+  	HourPipe,
+    DateformatPipe,
+    WeekdayPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {}, {
      links: [
       { component: HomePage, name: 'Home', segment: 'home' },
@@ -57,7 +64,8 @@ import { UserProvider } from '../providers/user/user';
       { component: TemoignagesPage, name: 'temoignages', segment: 'TemoignagesPage' },
       { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:token/:header' },
       { component: CommentPrierPage, name: 'comment-prier', segment: 'comment-prier' },
-      { component: LoginPage, name: 'login', segment: 'login' }
+      { component: LoginPage, name: 'login', segment: 'login' },
+      { component: ProfilePage, name: 'profile', segment: 'profile' }
     ]
   }),
 
@@ -73,6 +81,7 @@ import { UserProvider } from '../providers/user/user';
     CommentPrierPage,
     CalendarPage,
     LoginPage,
+    ProfilePage,
     CalendarComponent,
     RecurrentMenuComponent,
     ValidScheduleComponent,
@@ -83,7 +92,6 @@ import { UserProvider } from '../providers/user/user';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HTTP,
     HttpClientModule,
-    File,
     Network,
     WpProvider,
     { provide: APP_CONFIG, useValue: AppConfig },

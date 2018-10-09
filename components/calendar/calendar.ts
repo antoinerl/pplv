@@ -40,16 +40,19 @@ export class CalendarComponent {
         private prayersProvider : PrayersProvider, 
         private userProvider: UserProvider) {
 
-          this.platform.ready().then( (readySource) => {
-            if (!this.userProvider.getUser().slots) {
-              this.userProvider.getSlots().then(data => {
-                this.init(moment().format("YYYYMM"));
-              });
-            } else {
-              this.init(moment().format("YYYYMM"));
-            }
-          });
 	}
+
+  public load() {
+    this.platform.ready().then( (readySource) => {
+      if (this.userProvider.isLogged() && !this.userProvider.getUser().slots) {
+        this.userProvider.getSlots().then(data => {
+          this.init(moment().format("YYYYMM"));
+        });
+      } else {
+        this.init(moment().format("YYYYMM"));
+      }
+    });
+  }
 
   init(monthIndex) {
       this.recurrentEnabled = false;
@@ -60,7 +63,8 @@ export class CalendarComponent {
       $(".valid").addClass("disabled");
       $(".slots").addClass("disabled");
 
-      this.prepareUserSlots();
+      if (this.userProvider.isLogged())
+        this.prepareUserSlots();
       
       this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => { this.displayPrayers(prayers); });
     

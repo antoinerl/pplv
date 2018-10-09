@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the UserProvider provider.
@@ -11,11 +12,12 @@ import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 @Injectable()
 export class UserProvider {
 
-  user: any;
+  user: any = null;
 
   constructor(
             @Inject(APP_CONFIG) private config: IAppConfig,
-            public http: HttpClient) {
+            public http: HttpClient,
+            private storage: Storage) {
   }
 
   getUser() {
@@ -29,13 +31,15 @@ export class UserProvider {
   getSlots() {
     let params = new HttpParams()
           .set('id', String(this.user.ID))
-          .set('token', String(this.user.token));
+          .set('token', String(this.user.data.user_pass));
 
 
     return new Promise(resolve => {
         this.http.get(this.config.wsURL + "/persons/getSlots.php", { params: params }).subscribe(data => {
-            this.user.slots = data;
-            resolve(data);
+            var arr = Object.keys(data).map(key => data[key]);
+            arr.sort((n1,n2) => n1 - n2); 
+            this.user.slots = arr;
+            resolve(arr);
           }, err => {
             console.log(err);
           });
@@ -43,7 +47,7 @@ export class UserProvider {
   }
 
   isLogged() {
-    return this.user !== undefined;
+    return this.user !== null;
   }
 
   createAccount(email: string, password: string, zipcode: number) {
@@ -61,6 +65,7 @@ export class UserProvider {
               reject(data);
             } else {
               this.user = data;
+              this.storage.set("user", this.user);
               resolve(data);
             }
           }, err => {
@@ -81,8 +86,11 @@ export class UserProvider {
         this.http.post(this.config.wsURL + "/persons/login.php", body).subscribe(data => {
             if ('error' in data)
               reject(data);
-            else
+            else {
+              this.user = data;
+              this.storage.set("user", this.user);
               resolve(data);
+            }
           }, err => {
             console.log(err);
           });

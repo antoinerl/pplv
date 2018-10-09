@@ -84,6 +84,14 @@ calendar {
         border-top: 1px solid black;
      }
 
+    ion-calendar-week .week-title li:nth-of-type(7n), ion-calendar-week .week-title li:nth-of-type(7n+1) {
+        width: 14% !important;
+    }
+
+     ion-calendar-month .days-box {
+        padding: 0 !important;
+     }
+
     ion-calendar-month button.days-btn {
         border-radius: 0;
     }
@@ -239,6 +247,16 @@ calendar {
             margin: auto;
             margin-bottom: 7px;
             width: 14% !important;
+        }
+
+        span.hour {
+            width: 10%;
+        }
+    }
+
+    @media screen and (max-width: 599px) {
+        span.hour {
+            width: 16%;
         }
     }
 

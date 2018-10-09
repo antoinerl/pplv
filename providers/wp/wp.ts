@@ -1,6 +1,6 @@
 import { HTTP } from '@ionic-native/http';
 import { Injectable, Inject } from '@angular/core';
-import { File } from '@ionic-native/file';
+import { Storage } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { Platform } from 'ionic-angular';
 
@@ -19,7 +19,7 @@ export class WpProvider {
     @Inject(APP_CONFIG) private config: IAppConfig,
     public http: HTTP,
     public platform: Platform,
-    public file: File,
+    private storage: Storage,
     public network: Network) {
       
 
@@ -30,7 +30,7 @@ export class WpProvider {
     return new Promise( (resolve, reject) => {
       if (this.platform.is('cordova')) {
         if (this.network.type === 'none') {
-          this.getWpContentFromFile(slug, resolve, reject);
+          this.getWpContentFromStorage(slug, resolve, reject);
         }
         else {
           this.downloadWpContent(slug, resolve, reject);
@@ -44,7 +44,7 @@ export class WpProvider {
     return new Promise( (resolve, reject) => {
       if (this.platform.is('cordova')) {
         if (this.network.type === 'none') {
-          this.getWpContentFromFile(pageName, resolve, reject);
+          this.getWpContentFromStorage(pageName, resolve, reject);
         }
         else {
           this.downloadWpPage(id, resolve, reject);
@@ -53,10 +53,10 @@ export class WpProvider {
     });
   }
 
-  getWpContentFromFile(slug, resolve, reject) {
-    this.file.readAsText(this.file.dataDirectory, slug + '.json').then(data => {
-      let jsonObj = JSON.parse(data);
-      resolve(jsonObj);
+  getWpContentFromStorage(slug, resolve, reject) {
+    this.storage.get(slug).then(data => {
+      //let jsonObj = JSON.parse(data);
+      resolve(data);
     });
   }
 
@@ -64,20 +64,15 @@ export class WpProvider {
 
     this.http.get(this.config.wpURL + "/ws/get_category_posts/?slug=" + slug, {}, {}) 
       .then(data => {
-      
+        let jsonObj = JSON.parse(data.data);
         if(this.platform.is('core') || this.platform.is('mobileweb')) {
-            let jsonObj = JSON.parse(data.data);
-            resolve(jsonObj);
+          console.log("web");
+          resolve(jsonObj);
         } else {
-          this.file.writeFile(this.file.dataDirectory, slug + '.json', data.data, {replace:true})
-        .then(data => {
-          this.getWpContentFromFile(slug, resolve, reject);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+          console.log("mobile");
+          this.storage.set(slug, JSON.parse(data.data));
+          resolve(jsonObj);
         }
-        
       })
       .catch(error => {
         console.log("error recuperation Wordpress");
@@ -91,20 +86,13 @@ export class WpProvider {
     let namePage = "page_" + id;
     this.http.get(this.config.wpURL + "/ws/get_page/?id=" + id, {}, {}) 
       .then(data => {
-      
+        let jsonObj = JSON.parse(data.data);
         if(this.platform.is('core') || this.platform.is('mobileweb')) {
-            let jsonObj = JSON.parse(data.data);
             resolve(jsonObj);
         } else {
-          this.file.writeFile(this.file.dataDirectory, namePage + '.json', data.data, {replace:true})
-        .then(data => {
-          this.getWpContentFromFile(namePage, resolve, reject);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+          this.storage.set(namePage, JSON.parse(data.data));
+          resolve(jsonObj);
         }
-        
       })
       .catch(error => {
         console.log("error recuperation Wordpress");

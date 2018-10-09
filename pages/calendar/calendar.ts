@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CalendarComponent } from '../../components/calendar/calendar';
 import { UserProvider } from '../../providers/user/user';
+
+import { LoginPage } from '../../pages/login/login';
 
 
 /**
@@ -16,21 +18,29 @@ import { UserProvider } from '../../providers/user/user';
   templateUrl: 'calendar.html',
 })
 export class CalendarPage {
+    @ViewChild (CalendarComponent) calendar:CalendarComponent;
 
     private id:string;
     private token:string;
     private header:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
-    this.id = navParams.get('id');
-    this.token = decodeURIComponent(navParams.get('token'));
-    this.header = navParams.get('header');
+    if (userProvider.isLogged())
+      return;
 
-    userProvider.setUser({"ID": this.id, "token": this.token});
+    this.id = navParams.get('id');
+    if (this.id) {
+      this.token = decodeURIComponent(navParams.get('token'));
+      this.header = navParams.get('header');
+
+      userProvider.setUser({"ID": this.id, "data": {"user_pass": this.token} } );
+    } else {
+      this.navCtrl.push(LoginPage, {"close": "true"})
+    }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CalendarPage');
+  ionViewDidEnter() {
+    this.calendar.load();
   }
 
 }
