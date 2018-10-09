@@ -1,0 +1,15 @@
+page-prieres {
+
+    ion-grid:nth-child(2n) > .category,
+    ion-grid:nth-child(2n) > .post {
+        background: #DEDEDF;
+    }
+
+    ion-grid > ion-grid {
+        margin-left: 30px !important;
+    }
+
+    ion-grid > ion-grid .item-block {
+        width: calc(100% - 30px);
+    }
+}

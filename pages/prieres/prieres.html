@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Prières</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-grid *ngFor="let category of posts">
+        <ion-item (click)="categoryTapped($event, category.slug)" class="row category">
+            <h2>{{category.category}}</h2>
+        </ion-item>
+        <ion-grid *ngIf="selectedSlug==category.slug">
+            <ion-item *ngFor="let post of category.posts" (click)="itemTapped($event, post)" class="row post">
+                <p>{{post.title}}</p>
+            </ion-item>
+        </ion-grid>
+    </ion-grid>
+  </ion-list>
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+</ion-content>

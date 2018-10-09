@@ -1,0 +1,56 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <p>Email : {{user.data.user_login}}</p>
+
+    <button ion-button color="secondary" full (click)="toggleHours()">
+        <ion-icon name="time"></ion-icon>
+        <span>&nbsp;&nbsp;&nbsp;Mes heures de prières&nbsp;&nbsp;&nbsp;</span>
+         <ion-icon name="arrow-dropdown"></ion-icon>
+    </button>
+    <ion-list *ngIf="prayerHours">
+        <ion-item-sliding #slidingItem *ngFor="let slot of user.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
+            <ion-item>
+                {{slot | dateformat}}
+            </ion-item>
+            <ion-item-options side="right">
+                <button color="danger" ion-button expandable (click)="deleteRecurrence(slot)">
+                    <ion-icon name="trash"></ion-icon>
+                    <span>Tous les {{slot | weekday}}s</span>
+                </button>
+                <button color="warning" ion-button expandable (click)="delete(slot)">
+                    <ion-icon name="trash"></ion-icon>
+                    <span>Cette date</span>
+                </button>
+                
+            </ion-item-options>
+            <ion-item-options side="left" (ionSwipe)="delete(slot)">
+                <button color="danger" ion-button expandable (click)="delete(slot)">
+                    <ion-icon name="trash"></ion-icon>
+                    <span>Supprimer</span>
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+    <button ion-button color="primary" full (click)="disconnect">
+        <ion-icon name="exit"></ion-icon>
+        <span>&nbsp;&nbsp;&nbsp;Déconnexion</span>
+    </button>
+</ion-content>
