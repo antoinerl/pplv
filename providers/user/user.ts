@@ -55,10 +55,14 @@ export class UserProvider {
       }
     });
 
-    return new Promise(resolve => {
+    return new Promise( (resolve, reject) => {
         this.http.post(this.config.wsURL + "/persons/createPerson.php", body).subscribe(data => {
-            this.user = data;
-            resolve(data);
+            if ('error' in data) {
+              reject(data);
+            } else {
+              this.user = data;
+              resolve(data);
+            }
           }, err => {
             console.log(err);
           });
