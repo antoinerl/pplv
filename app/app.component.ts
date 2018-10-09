@@ -7,6 +7,9 @@ import { HomePage } from '../pages/home/home';
 import { PrieresPage } from '../pages/prieres/prieres';
 import { TemoignagesPage } from '../pages/temoignages/temoignages';
 import { CalendarPage } from '../pages/calendar/calendar';
+import { CommentPrierPage } from '../pages/comment-prier/comment-prier';
+import { LoginPage } from '../pages/login/login';
+
 
 import * as moment from 'moment';
 
@@ -25,10 +28,12 @@ export class MyApp {
 
     this.pages = [
       { title: 'Accueil', component: HomePage, params: {} },
+      { title: 'Calendrier', component: CalendarPage, params: {'id' : '29', 'token' : '$P$BLWRgd0EBCV9BAfIVK1CawMDY9QpQb1', 'header': 'true'} },
+      { title: 'Comment prier ?', component: CommentPrierPage, params: {} },
       { title: 'Prières', component: PrieresPage, params: {'slug' : 'prieres'} },
       { title: 'Témoignages', component: TemoignagesPage, params: {'slug' : 'temoignages'} },
       /*{ title: 'Mon profil', component: TemoignagesPage, params: {'slug' : 'temoignages'} }*/
-      { title: 'Calendrier', component: CalendarPage, params: {'id' : '29', 'token' : '$P$BLWRgd0EBCV9BAfIVK1CawMDY9QpQb1', 'header': 'true'} }
+      { title: 'Connexion', component: LoginPage, params: {} }
     ];
 
   }

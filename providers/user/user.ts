@@ -42,4 +42,47 @@ export class UserProvider {
       });
   }
 
+  isLogged() {
+    return this.user !== undefined;
+  }
+
+  createAccount(email: string, password: string, zipcode: number) {
+    let body = new HttpParams({
+      fromObject : {
+        'email' : email,
+        'password' : password,
+        'zipcode': String(zipcode)
+      }
+    });
+
+    return new Promise(resolve => {
+        this.http.post(this.config.wsURL + "/persons/createPerson.php", body).subscribe(data => {
+            this.user = data;
+            resolve(data);
+          }, err => {
+            console.log(err);
+          });
+      });
+  }
+
+  login(email: string, password: string) {
+    let body = new HttpParams({
+      fromObject : {
+        'email' : email,
+        'password' : password
+      }
+    });
+
+    return new Promise( (resolve, reject) => {
+        this.http.post(this.config.wsURL + "/persons/login.php", body).subscribe(data => {
+            if ('error' in data)
+              reject(data);
+            else
+              resolve(data);
+          }, err => {
+            console.log(err);
+          });
+      });
+  }
+
 }

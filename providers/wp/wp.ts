@@ -39,6 +39,20 @@ export class WpProvider {
     });
   }
 
+  getPage(id): Promise <any> {
+    let pageName = "page_"+id;
+    return new Promise( (resolve, reject) => {
+      if (this.platform.is('cordova')) {
+        if (this.network.type === 'none') {
+          this.getWpContentFromFile(pageName, resolve, reject);
+        }
+        else {
+          this.downloadWpPage(id, resolve, reject);
+        }
+      }
+    });
+  }
+
   getWpContentFromFile(slug, resolve, reject) {
     this.file.readAsText(this.file.dataDirectory, slug + '.json').then(data => {
       let jsonObj = JSON.parse(data);
@@ -58,6 +72,33 @@ export class WpProvider {
           this.file.writeFile(this.file.dataDirectory, slug + '.json', data.data, {replace:true})
         .then(data => {
           this.getWpContentFromFile(slug, resolve, reject);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+        }
+        
+      })
+      .catch(error => {
+        console.log("error recuperation Wordpress");
+        console.log(error.status);
+        console.log(error.error); // error message as string
+        console.log(error.headers);
+      });
+  }
+
+  downloadWpPage(id, resolve, reject) {
+    let namePage = "page_" + id;
+    this.http.get(this.config.wpURL + "/ws/get_page/?id=" + id, {}, {}) 
+      .then(data => {
+      
+        if(this.platform.is('core') || this.platform.is('mobileweb')) {
+            let jsonObj = JSON.parse(data.data);
+            resolve(jsonObj);
+        } else {
+          this.file.writeFile(this.file.dataDirectory, namePage + '.json', data.data, {replace:true})
+        .then(data => {
+          this.getWpContentFromFile(namePage, resolve, reject);
         })
         .catch(error => {
           console.log(error);

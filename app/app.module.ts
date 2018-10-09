@@ -8,6 +8,8 @@ import { PrieresPage } from '../pages/prieres/prieres';
 import { PrierePage } from '../pages/priere/priere';
 import { TemoignagesPage } from '../pages/temoignages/temoignages';
 import { CalendarPage } from '../pages/calendar/calendar';
+import { CommentPrierPage } from '../pages/comment-prier/comment-prier';
+import { LoginPage } from '../pages/login/login';
 
 import { CalendarModule } from "ion2-calendar";
 import { CalendarComponent } from '../components/calendar/calendar'
@@ -36,7 +38,9 @@ import { UserProvider } from '../providers/user/user';
     PrieresPage,
     PrierePage,
     TemoignagesPage,
+    CommentPrierPage,
     CalendarPage,
+    LoginPage,
 	CalendarComponent,
 	RecurrentMenuComponent,
   ValidScheduleComponent,
@@ -51,7 +55,9 @@ import { UserProvider } from '../providers/user/user';
       { component: PrieresPage, name: 'prieres', segment: 'prieres' },
       { component: PrierePage, name: 'priere', segment: 'priere/:slug' },
       { component: TemoignagesPage, name: 'temoignages', segment: 'TemoignagesPage' },
-      { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:token/:header' }
+      { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:token/:header' },
+      { component: CommentPrierPage, name: 'comment-prier', segment: 'comment-prier' },
+      { component: LoginPage, name: 'login', segment: 'login' }
     ]
   }),
 
@@ -64,7 +70,9 @@ import { UserProvider } from '../providers/user/user';
     PrieresPage,
     PrierePage,
     TemoignagesPage,
+    CommentPrierPage,
     CalendarPage,
+    LoginPage,
     CalendarComponent,
     RecurrentMenuComponent,
     ValidScheduleComponent,
