@@ -1,4 +1,4 @@
-import { HTTP } from '@ionic-native/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 
@@ -15,7 +15,7 @@ export class UserProvider {
 
   constructor(
             @Inject(APP_CONFIG) private config: IAppConfig,
-            public http: HTTP) {
+            public http: HttpClient) {
   }
 
   getUser() {
@@ -27,18 +27,18 @@ export class UserProvider {
   }
 
   getSlots() {
-    let parameters = {
-        id: this.user.ID,
-        token: this.user.token
-    }
+    let params = new HttpParams()
+          .set('id', String(this.user.ID))
+          .set('token', String(this.user.token));
+
 
     return new Promise(resolve => {
-        this.http.get(this.config.wsURL + "/persons/getSlots.php", parameters, {}).then(data => {
-          this.user.slots = JSON.parse(data.data);
-          resolve("ok");
-        }, err => {
-          console.log(err);
-        });
+        this.http.get(this.config.wsURL + "/persons/getSlots.php", { params: params }).subscribe(data => {
+            this.user.slots = data;
+            resolve(data);
+          }, err => {
+            console.log(err);
+          });
       });
   }
 

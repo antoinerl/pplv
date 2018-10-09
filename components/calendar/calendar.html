@@ -26,8 +26,8 @@
 
     <div>
       <ion-item>
-        <ion-label class="toggleReminder disabled">Recevoir un rappel</ion-label>
-        <ion-toggle [(ngModel)]="reminder"  (ngModelChange)="setReminder(reminder)"></ion-toggle>
+        <ion-label class="toggleReminder">Recevoir un rappel</ion-label>
+        <ion-toggle [(ngModel)]="reminder"  (ngModelChange)="setReminder(reminder)" [disabled]="!recurrentEnabled"></ion-toggle>
       </ion-item>
       <ion-item *ngIf="mobile">
         <ion-label>Avant par email</ion-label>
@@ -49,6 +49,8 @@
       </div>
 
     </div>
+
+    <p>Pour être sûr que votre engagement est toujours d'actualité, nous vous prions de bien vouloir le renouveler tous les 6 mois</p>
 
     <button ion-button primary class="valid disabled" id="valid" (click)="valid()">Je m'inscris</button>
   </div>

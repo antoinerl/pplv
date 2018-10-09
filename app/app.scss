@@ -18,3 +18,12 @@
 *{
 font-family: Dosis;
 }
+
+.toolbar-background {
+    background-color: color($colors, secondary, base);
+}
+
+.toolbar-title,
+ion-navbar button span {
+    color: white !important;
+}

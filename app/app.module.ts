@@ -4,7 +4,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { PrieresPage } from '../pages/prieres/prieres';
+import { PrierePage } from '../pages/priere/priere';
+import { TemoignagesPage } from '../pages/temoignages/temoignages';
 import { CalendarPage } from '../pages/calendar/calendar';
 
 import { CalendarModule } from "ion2-calendar";
@@ -18,6 +20,7 @@ import { APP_CONFIG, AppConfig } from './app.config';
 import { File } from '@ionic-native/file';
 import { Network } from '@ionic-native/network';
 import { HTTP } from '@ionic-native/http';
+import { HttpClientModule } from "@angular/common/http";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +33,9 @@ import { UserProvider } from '../providers/user/user';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
+    PrieresPage,
+    PrierePage,
+    TemoignagesPage,
     CalendarPage,
 	CalendarComponent,
 	RecurrentMenuComponent,
@@ -39,12 +44,14 @@ import { UserProvider } from '../providers/user/user';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp, {}, {
      links: [
       { component: HomePage, name: 'Home', segment: 'home' },
-      { component: ListPage, name: 'my-page', segment: 'some-path/:param' },
+      { component: PrieresPage, name: 'prieres', segment: 'prieres' },
+      { component: PrierePage, name: 'priere', segment: 'priere/:slug' },
+      { component: TemoignagesPage, name: 'temoignages', segment: 'TemoignagesPage' },
       { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:token/:header' }
-
     ]
   }),
 
@@ -54,7 +61,9 @@ import { UserProvider } from '../providers/user/user';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
+    PrieresPage,
+    PrierePage,
+    TemoignagesPage,
     CalendarPage,
     CalendarComponent,
     RecurrentMenuComponent,
@@ -65,6 +74,7 @@ import { UserProvider } from '../providers/user/user';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HTTP,
+    HttpClientModule,
     File,
     Network,
     WpProvider,

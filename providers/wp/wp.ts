@@ -15,8 +15,6 @@ import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 @Injectable()
 export class WpProvider {
 
-    public items: Array<any> = [];
-
   constructor(
     @Inject(APP_CONFIG) private config: IAppConfig,
     public http: HTTP,
@@ -44,25 +42,25 @@ export class WpProvider {
   getWpContentFromFile(slug, resolve, reject) {
     this.file.readAsText(this.file.dataDirectory, slug + '.json').then(data => {
       let jsonObj = JSON.parse(data);
-      this.items = jsonObj;
-      resolve(this.items);
+      resolve(jsonObj);
     });
   }
 
   downloadWpContent(slug, resolve, reject) {
+
     this.http.get(this.config.wpURL + "/ws/get_category_posts/?slug=" + slug, {}, {}) 
       .then(data => {
+      
         if(this.platform.is('core') || this.platform.is('mobileweb')) {
             let jsonObj = JSON.parse(data.data);
-            this.items = jsonObj;
-            resolve(this.items);
+            resolve(jsonObj);
         } else {
           this.file.writeFile(this.file.dataDirectory, slug + '.json', data.data, {replace:true})
         .then(data => {
           this.getWpContentFromFile(slug, resolve, reject);
         })
         .catch(error => {
-          console.log("error");
+          console.log(error);
         });
         }
         

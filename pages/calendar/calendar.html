@@ -7,13 +7,16 @@
 <ion-header *ngIf="header != 'false'">
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Mon calendrier de prières</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding [ngClass]="header == 'false' ? 'iframe' : ''">
-    <h1 *ngIf="header == 'false'">
+    <h1>
         Je m'inscris pour prier
     </h1>
 

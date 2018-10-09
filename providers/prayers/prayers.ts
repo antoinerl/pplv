@@ -1,4 +1,4 @@
-import { HTTP } from '@ionic-native/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 
@@ -13,22 +13,22 @@ export class PrayersProvider {
 
   constructor(
             @Inject(APP_CONFIG) private config: IAppConfig,
-            public http: HTTP
+            public http: HttpClient
         ) {
     
   }
 
   getPrayers(dayindex, time) {
-    let parameters = {
-        dayindex: dayindex,
-        time: "false"
-    }
+    let params = new HttpParams()
+        .set('dayindex', String(dayindex))
+        .set('time', "false");
+        
     if (time) {
-        parameters.time = "true";
+        params.set('time', "true");
     }
     return new Promise(resolve => {
-        this.http.get(this.config.wsURL + "/prayers/getPrayers.php", parameters, {}).then(data => {
-          resolve(JSON.parse(data.data));
+        this.http.get(this.config.wsURL + "/prayers/getPrayers.php", { params: params }).subscribe(data => {
+          resolve(data);
         }, err => {
           console.log(err);
         });

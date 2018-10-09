@@ -57,7 +57,7 @@ export class CalendarComponent {
       $(".hour").removeClass("already-selected");
       $(".hour").removeClass("empty-ranges");
       $(".hour").removeClass("selected");
-      $(".valid, .toggleReminder").addClass("disabled");
+      $(".valid").addClass("disabled");
       $(".slots").addClass("disabled");
 
       this.prepareUserSlots();
@@ -146,13 +146,14 @@ export class CalendarComponent {
     $(".hour").removeClass("selected");
     $("#hour_"+hour).addClass("selected");
     this.recurrentEnabled = true;
-    //$(".valid, .toggleReminder").removeClass("disabled");
     $(".valid").removeClass("disabled");
   }
 
   setReminder(value) {
     if (value) {
-      $(".selectReminder").removeClass("disabled");
+      alert("Cette fonctionnalité n'est pas encore disponible");
+      this.reminder = false;
+      //$(".selectReminder").removeClass("disabled");
     } else {
       $(".selectReminder").addClass("disabled");
     }
