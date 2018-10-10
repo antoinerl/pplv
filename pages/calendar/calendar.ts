@@ -4,6 +4,7 @@ import { CalendarComponent } from '../../components/calendar/calendar';
 import { UserProvider } from '../../providers/user/user';
 
 import { LoginPage } from '../../pages/login/login';
+import { PlanningPage } from '../../pages/planning/planning';
 
 
 /**
@@ -43,4 +44,7 @@ export class CalendarPage {
     this.calendar.load();
   }
 
+  openPlanning() {
+    this.navCtrl.setRoot(PlanningPage);
+  }
 }

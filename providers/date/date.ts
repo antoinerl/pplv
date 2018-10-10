@@ -75,7 +75,7 @@ export class DateProvider {
         .subscribe(data => {
           delete this.date;
           delete this.hour;
-          resolve("ok");
+          resolve(data);
         }, err => {
           reject(err);
         });

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
 import 'moment-timezone';
@@ -8,6 +8,8 @@ import * as $ from "jquery";
 import { DateProvider } from '../../providers/date/date';
 import { PrayersProvider } from '../../providers/prayers/prayers';
 import { UserProvider } from '../../providers/user/user';
+
+import { PlanningPage } from '../../pages/planning/planning';
 
 /**
  * Generated class for the CalendarComponent component.
@@ -38,7 +40,8 @@ export class CalendarComponent {
         private platform: Platform,
         private dateProvider : DateProvider, 
         private prayersProvider : PrayersProvider, 
-        private userProvider: UserProvider) {
+        private userProvider: UserProvider,
+        private navCtrl: NavController) {
 
 	}
 
@@ -167,11 +170,12 @@ export class CalendarComponent {
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 
-    this.dateProvider.valid().then(data => {
-          this.userProvider.getSlots().then(data => {
+    this.dateProvider.valid().then(newSlots => {
+          this.userProvider.getSlots().then(slots => {
             this.init(moment().format("YYYYMM"));
           });
-          this.displayAlert(data);
+          this.displayAlert(newSlots);
+          this.navCtrl.setRoot(PlanningPage, {'thanks':true, 'slots': newSlots});
         })
         .catch(err => {
           console.log(err);

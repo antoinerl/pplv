@@ -16,11 +16,15 @@
 </ion-header>
 
 <ion-content padding [ngClass]="header == 'false' ? 'iframe' : ''">
-    <h1>
+    <h1 *ngIf="header == 'false'">
         Je m'inscris pour prier
     </h1>
 
     <div id="calendar">
         <calendar recur="true"></calendar>
     </div>
+
+    <button ion-button class="buttonFixed" (click)="openPlanning()">
+      <ion-icon name="list"></ion-icon>
+    </button>
 </ion-content>
