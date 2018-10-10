@@ -82,7 +82,7 @@ export class CalendarComponent {
     let slots = this.userProvider.getUser().slots;
     for (let slot in slots) {
       this._daysConfig.push({
-            date: new Date(parseInt(slots[slot])*1000),
+            date: new Date(moment(parseInt(slots[slot]*1000)).utc().format("YYYY-MM-DD H:mm:ss")),
             cssClass: 'already-selected'
         });
     }
@@ -110,11 +110,10 @@ export class CalendarComponent {
 
 	onChange($event) {
     let unixUTC = moment.tz($event.format("YYYY-MM-DD"), "UTC").unix();
-    console.log(unixUTC);
     this.dateProvider.setSelectedDate(unixUTC);
     this.selectedDate = this.dateProvider.getSelectedDate();
 
-    this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours($event.unix(), data));
+    this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours(unixUTC, data));
 
 	}  
 

@@ -39,7 +39,7 @@ export class MyApp {
 
     this.pages = [
       { title: 'Accueil', component: HomePage, params: {} },
-      { title: 'Calendrier', component: CalendarPage, params: {} },
+      { title: 'Calendrier/ Planning', component: CalendarPage, params: {} },
       /*{ title: 'Planning', component: PlanningPage, params: {} },*/
       { title: 'Comment prier ?', component: CommentPrierPage, params: {} },
       { title: 'Prières', component: PrieresPage, params: {'slug' : 'prieres'} },

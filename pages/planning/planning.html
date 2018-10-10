@@ -25,18 +25,18 @@
                 {{slot | dateformat}}
             </ion-item>
             <ion-item-options side="right">
-                <button color="danger" ion-button expandable (click)="deleteRecurrence(slot)">
+                <button color="danger" ion-button expandable (click)="delete(slot, true)">
                     <ion-icon name="trash"></ion-icon>
                     <span>Tous les {{slot | weekday}}s</span>
                 </button>
-                <button color="warning" ion-button expandable (click)="delete(slot)">
+                <button color="warning" ion-button expandable (click)="delete(slot, false)">
                     <ion-icon name="trash"></ion-icon>
                     <span>Cette date</span>
                 </button>
                 
             </ion-item-options>
-            <ion-item-options side="left" (ionSwipe)="delete(slot)">
-                <button color="danger" ion-button expandable (click)="delete(slot)">
+            <ion-item-options side="left" (ionSwipe)="delete(slot, false)">
+                <button color="danger" ion-button expandable (click)="delete(slot, false)">
                     <ion-icon name="trash"></ion-icon>
                     <span>Supprimer</span>
                 </button>

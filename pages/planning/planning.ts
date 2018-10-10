@@ -63,14 +63,10 @@ export class PlanningPage {
   ionViewDidLoad() {
   }
 
-  delete(slot) {
-    this.dateProvider.removeSlot(slot).then( () => {
+  delete(slot, recur) {
+    this.dateProvider.removeSlot(slot, recur).then( () => {
       this.userProvider.getSlots();
     });
-  }
-
-  deleteRecurrence(slot) {
-
   }
 
   isNewSlot(slot) {
