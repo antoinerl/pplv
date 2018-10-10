@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserProvider } from '../../providers/user/user'
 import { ViewController } from 'ionic-angular';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 /**
  * Generated class for the AddToCalendarComponent component.
