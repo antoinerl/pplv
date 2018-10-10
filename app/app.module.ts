@@ -27,6 +27,7 @@ import { APP_CONFIG, AppConfig } from './app.config';
 import { IonicStorageModule } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { HttpClientModule } from "@angular/common/http";
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -103,7 +104,8 @@ import { UserProvider } from '../providers/user/user';
     DateProvider,
     PrayersProvider,
     UserProvider,
-    UserProvider
+    UserProvider,
+    LocalNotifications
   ]
 })
 export class AppModule {}
