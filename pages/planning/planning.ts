@@ -1,5 +1,6 @@
 import { NavController, NavParams, IonicPage, ItemSliding } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
+import { DateProvider } from '../../providers/date/date';
 import { DateformatPipe } from '../../pipes/dateformat/dateformat';
 import { Component, ViewChildren, QueryList } from '@angular/core';
 
@@ -27,7 +28,9 @@ export class PlanningPage {
 
   private thanks:boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+              private userProvider: UserProvider,
+              private dateProvider: DateProvider) {
     if (navParams.get('thanks'))
       this.thanks = true;
 
@@ -61,7 +64,13 @@ export class PlanningPage {
   }
 
   delete(slot) {
-    alert(slot);
+    this.dateProvider.removeSlot(slot).then( () => {
+      this.userProvider.getSlots();
+    });
+  }
+
+  deleteRecurrence(slot) {
+
   }
 
   isNewSlot(slot) {

@@ -81,4 +81,24 @@ export class DateProvider {
         });
     });
   }
+
+  removeSlot(slot) {
+    return new Promise( (resolve, reject) => {
+
+      let user = this.userProvider.getUser();
+
+      let params = new HttpParams()
+          .set('_id', String(user.ID))
+          .set('password', user.data.user_pass)
+          .set('from', String(slot));
+          //.set('day_of_week', day_of_week);
+
+      this.http.get(this.config.wsURL + "/persons/delTimePerson.php", {params: params}) 
+        .subscribe(data => {
+          resolve("ok");
+        }, err => {
+          reject(err);
+        });
+    });
+  }
 }
