@@ -1,4 +1,4 @@
-import { HTTP } from '@ionic-native/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
@@ -17,7 +17,7 @@ export class WpProvider {
 
   constructor(
     @Inject(APP_CONFIG) private config: IAppConfig,
-    public http: HTTP,
+    public http: HttpClient,
     public platform: Platform,
     private storage: Storage,
     public network: Network) {
@@ -42,11 +42,14 @@ export class WpProvider {
   getPage(id): Promise <any> {
     let pageName = "page_"+id;
     return new Promise( (resolve, reject) => {
+      console.log("ici");
       if (this.platform.is('cordova')) {
+        console.log("cordova");
         if (this.network.type === 'none') {
+          console.log("pas de reseau");
           this.getWpContentFromStorage(pageName, resolve, reject);
-        }
-        else {
+        } else {
+          console.log("reseau");
           this.downloadWpPage(id, resolve, reject);
         }
       }
@@ -62,19 +65,19 @@ export class WpProvider {
 
   downloadWpContent(slug, resolve, reject) {
 
-    this.http.get(this.config.wpURL + "/ws/get_category_posts/?slug=" + slug, {}, {}) 
-      .then(data => {
-        let jsonObj = JSON.parse(data.data);
+    this.http.get(this.config.wpURL + "/ws/get_category_posts/?slug=" + slug, {}) 
+      .subscribe(data => {
+        /*
         if(this.platform.is('core') || this.platform.is('mobileweb')) {
           console.log("web");
-          resolve(jsonObj);
+          resolve(data);
         } else {
           console.log("mobile");
-          this.storage.set(slug, JSON.parse(data.data));
-          resolve(jsonObj);
-        }
-      })
-      .catch(error => {
+          */
+          this.storage.set(slug, data);
+          resolve(data);
+        //}
+      }, error => {
         console.log("error recuperation Wordpress");
         console.log(error.status);
         console.log(error.error); // error message as string
@@ -84,17 +87,17 @@ export class WpProvider {
 
   downloadWpPage(id, resolve, reject) {
     let namePage = "page_" + id;
-    this.http.get(this.config.wpURL + "/ws/get_page/?id=" + id, {}, {}) 
-      .then(data => {
-        let jsonObj = JSON.parse(data.data);
+    this.http.get(this.config.wpURL + "/ws/get_page/?id=" + id, {}) 
+      .subscribe(data => {
+        /*
         if(this.platform.is('core') || this.platform.is('mobileweb')) {
-            resolve(jsonObj);
+            resolve(data);
         } else {
-          this.storage.set(namePage, JSON.parse(data.data));
-          resolve(jsonObj);
-        }
-      })
-      .catch(error => {
+        */
+          this.storage.set(namePage, data);
+          resolve(data);
+        //}
+      }, error => {
         console.log("error recuperation Wordpress");
         console.log(error.status);
         console.log(error.error); // error message as string

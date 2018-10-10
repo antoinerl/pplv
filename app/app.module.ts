@@ -24,7 +24,6 @@ import {WeekdayPipe} from '../pipes/weekday/weekday';
 import { APP_CONFIG, AppConfig } from './app.config';
 import { IonicStorageModule } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
-import { HTTP } from '@ionic-native/http';
 import { HttpClientModule } from "@angular/common/http";
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -90,7 +89,6 @@ import { UserProvider } from '../providers/user/user';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HTTP,
     HttpClientModule,
     Network,
     WpProvider,
