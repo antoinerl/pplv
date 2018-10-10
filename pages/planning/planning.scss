@@ -9,4 +9,8 @@ page-planning {
     ion-item-sliding:nth-child(odd) > ion-item {
         background: #efefef;
     }
+
+    button.button-full {
+        margin-bottom: 20px;
+    }
 }

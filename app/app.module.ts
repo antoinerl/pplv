@@ -14,7 +14,8 @@ import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 
 import { CalendarModule } from "ion2-calendar";
-import { CalendarComponent } from '../components/calendar/calendar'
+import { CalendarComponent } from '../components/calendar/calendar';
+import { AddToCalendarComponent } from '../components/add-to-calendar/add-to-calendar';
 import { RecurrentMenuComponent } from '../components/recurrent-menu/recurrent-menu'
 import { ValidScheduleComponent } from '../components/valid-schedule/valid-schedule'
 
@@ -47,6 +48,7 @@ import { UserProvider } from '../providers/user/user';
     LoginPage,
     ProfilePage,
   	CalendarComponent,
+    AddToCalendarComponent,
   	RecurrentMenuComponent,
     ValidScheduleComponent,
   	HourPipe,
@@ -88,6 +90,7 @@ import { UserProvider } from '../providers/user/user';
     CalendarComponent,
     RecurrentMenuComponent,
     ValidScheduleComponent,
+    AddToCalendarComponent
   ],
   providers: [
     StatusBar,

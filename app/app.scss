@@ -16,7 +16,7 @@
 // automatically applied to the <body> element in the app.
  
 *{
-font-family: Dosis;
+    font-family: Dosis;
 }
 
 .toolbar-background {
@@ -26,4 +26,24 @@ font-family: Dosis;
 .toolbar-title,
 ion-navbar button span {
     color: white !important;
+}
+
+button.button-full span {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+ion-modal.syncCal {
+    display: flex;
+}
+
+ion-modal.syncCal .modal-wrapper {
+    width: 240px;
+    height: 400px;
+    margin: auto;
+    background: #fff;
+}
+
+a {
+    text-decoration: none;
 }

@@ -82,7 +82,7 @@ export class CalendarComponent {
     let slots = this.userProvider.getUser().slots;
     for (let slot in slots) {
       this._daysConfig.push({
-            date: new Date(moment(parseInt(slots[slot]*1000)).utc().format("YYYY-MM-DD H:mm:ss")),
+            date: new Date(moment(slots[slot]*1000).utc().format("YYYY-MM-DD H:mm:ss")),
             cssClass: 'already-selected'
         });
     }

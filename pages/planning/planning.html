@@ -19,6 +19,11 @@
 <ion-content padding>
     <h2 *ngIf="thanks">Merci pour votre inscription !</h2>
 
+    <button ion-button full (click)="presentSyncModal()">
+        <ion-icon name="calendar"></ion-icon>
+        <span>Synchroniser mon calendrier</span>
+    </button>
+
     <ion-list>
         <ion-item-sliding #slidingItem *ngFor="let slot of user.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
             <ion-item *ngIf="isNewSlot(slot)">

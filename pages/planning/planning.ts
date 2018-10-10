@@ -1,4 +1,4 @@
-import { NavController, NavParams, IonicPage, ItemSliding } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ItemSliding, ModalController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { DateProvider } from '../../providers/date/date';
 import { DateformatPipe } from '../../pipes/dateformat/dateformat';
@@ -6,6 +6,7 @@ import { Component, ViewChildren, QueryList } from '@angular/core';
 
 import { CalendarPage } from '../../pages/calendar/calendar';
 import { LoginPage } from '../../pages/login/login';
+import { AddToCalendarComponent } from '../../components/add-to-calendar/add-to-calendar';
 
 /**
  * Generated class for the PlanningPage page.
@@ -28,7 +29,7 @@ export class PlanningPage {
 
   private thanks:boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
               private userProvider: UserProvider,
               private dateProvider: DateProvider) {
     if (navParams.get('thanks'))
@@ -72,6 +73,11 @@ export class PlanningPage {
   isNewSlot(slot) {
     return this.newSlots === undefined || this.newSlots.some(e => e == slot);
   }
+
+  presentSyncModal() {
+     let syncModal = this.modalCtrl.create(AddToCalendarComponent, {}, { 'cssClass' : 'syncCal'});
+     syncModal.present();
+   }
 
   public openSlidingItem($event: Event, item: any) {
     // This is to prevent a call to itemSliding.close() in the template
