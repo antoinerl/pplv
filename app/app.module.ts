@@ -8,6 +8,7 @@ import { PrieresPage } from '../pages/prieres/prieres';
 import { PrierePage } from '../pages/priere/priere';
 import { TemoignagesPage } from '../pages/temoignages/temoignages';
 import { CalendarPage } from '../pages/calendar/calendar';
+import { PlanningPage } from '../pages/planning/planning';
 import { CommentPrierPage } from '../pages/comment-prier/comment-prier';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
@@ -42,6 +43,7 @@ import { UserProvider } from '../providers/user/user';
     TemoignagesPage,
     CommentPrierPage,
     CalendarPage,
+    PlanningPage,
     LoginPage,
     ProfilePage,
   	CalendarComponent,
@@ -60,8 +62,9 @@ import { UserProvider } from '../providers/user/user';
       { component: HomePage, name: 'Home', segment: 'home' },
       { component: PrieresPage, name: 'prieres', segment: 'prieres' },
       { component: PrierePage, name: 'priere', segment: 'priere/:slug' },
-      { component: TemoignagesPage, name: 'temoignages', segment: 'TemoignagesPage' },
+      { component: TemoignagesPage, name: 'temoignages', segment: 'temoignages' },
       { component: CalendarPage, name: 'calendar', segment: 'calendar/:id/:token/:header' },
+      { component: PlanningPage, name: 'planning', segment: 'planning/:id/:token/:header' },
       { component: CommentPrierPage, name: 'comment-prier', segment: 'comment-prier' },
       { component: LoginPage, name: 'login', segment: 'login' },
       { component: ProfilePage, name: 'profile', segment: 'profile' }
@@ -79,6 +82,7 @@ import { UserProvider } from '../providers/user/user';
     TemoignagesPage,
     CommentPrierPage,
     CalendarPage,
+    PlanningPage,
     LoginPage,
     ProfilePage,
     CalendarComponent,
