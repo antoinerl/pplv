@@ -1,4 +1,4 @@
-import { HTTP } from '@ionic-native/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import * as moment from 'moment';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
@@ -20,7 +20,7 @@ export class DateProvider {
 
   constructor(
         @Inject(APP_CONFIG) private config: IAppConfig,
-        public http: HTTP,
+        public http: HttpClient,
         private userProvider: UserProvider
     ) {
     
@@ -64,21 +64,19 @@ export class DateProvider {
 
       let user = this.userProvider.getUser();
 
-      let parameters = {
-        _id: user.ID,
-        password: user.token,
-        from: String(time),
-        nth: nth,
-        day_of_week: day_of_week
-      }      
+      let params = new HttpParams()
+          .set('_id', String(user.ID))
+          .set('password', user.data.user_pass)
+          .set('from', String(time))
+          .set('nth', nth)
+          .set('day_of_week', day_of_week);
 
-      this.http.get(this.config.wsURL + "/persons/addTimePerson.php", parameters, {}) 
-        .then(data => {
+      this.http.get(this.config.wsURL + "/persons/addTimePerson.php", {params: params}) 
+        .subscribe(data => {
           delete this.date;
           delete this.hour;
-          resolve(data.data);
-        })
-        .catch(err => {
+          resolve("ok");
+        }, err => {
           reject(err);
         });
     });
