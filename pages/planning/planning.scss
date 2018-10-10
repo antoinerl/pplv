@@ -1,0 +1,12 @@
+page-planning {
+    .buttonFixed {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        border-radius: 50px;
+    }
+
+    ion-item-sliding:nth-child(odd) > ion-item {
+        background: #efefef;
+    }
+}
