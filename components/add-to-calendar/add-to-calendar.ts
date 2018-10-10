@@ -15,11 +15,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AddToCalendarComponent {
     private urlICS: string;
-    private webcalICS: string;
+    private webcalICS: SafeUrl;
 
-  constructor(private userProvider: UserProvider, public viewCtrl: ViewController, private sanitizer: DomSanitizer) {
-    this.urlICS = encodeURIComponent("http://ical.prionspourlavie.fr/getICS.php?id=29&token=%24P%24BLWRgd0EBCV9BAfIVK1CawMDY9QpQb1");
-    this.webcalICS = sanitizer.bypassSecurityTrustUrl("webcal://ical.prionspourlavie.fr/getICS.php?id=29&token=%24P%24BLWRgd0EBCV9BAfIVK1CawMDY9QpQb1");
+  constructor(private userProvider: UserProvider, 
+                public viewCtrl: ViewController, 
+                private sanitizer: DomSanitizer) {
+    let user = userProvider.getUser();
+    this.urlICS = encodeURIComponent("http://ical.prionspourlavie.fr/getICS.php?id="+user.ID+"&token="+user.data.user_pass);
+    this.webcalICS = sanitizer.bypassSecurityTrustUrl("webcal://ical.prionspourlavie.fr/getICS.php?id="+user.ID+"&token="+user.data.user_pass);
   }
 
   dismiss() {
