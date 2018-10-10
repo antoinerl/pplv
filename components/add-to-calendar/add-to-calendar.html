@@ -1,0 +1,33 @@
+<!-- Generated template for the AddToCalendarComponent component -->
+<div>
+    <h2>Synchroniser avec</h2>
+    <ion-list>
+        <a href="https://calendar.google.com/calendar/render?cid={{urlICS}}" target="_blank">
+            <ion-item>
+                <img src="assets/icon/icon-google.svg" />Google Calendar
+            </ion-item>
+        </a>
+        <a href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addsubscription&url={{urlICS}}&name=Prions%2Opour%20la%20vie" target="_blank">
+            <ion-item>
+                <img src="assets/icon/icon-outlookcom.svg" />Microsoft Outlook Live
+            </ion-item>
+        </a>
+        <a href="https://outlook.office365.com/owa/?path=/calendar/action/compose&rru=addsubscription&url={{urlICS}}&name=Prions%2Opour%20la%20vie" target="_blank">
+            <ion-item>
+                <img src="assets/icon/icon-outlookcom.svg" />Microsoft Outlook 365
+            </ion-item>
+        </a>
+        <a [href]="webcalICS" target="_blank">
+            <ion-item>
+                <img src="assets/icon/icon-outlook.svg" />Microsoft Outlook
+            </ion-item>
+        </a>
+        <a [href]="webcalICS" target="_blank">
+            <ion-item>
+                <img src="assets/icon/icon-apple.svg" />Apple Calendar
+            </ion-item>
+        </a>
+        <ion-item>Autre</ion-item>
+        <ion-item (click)="dismiss()">Fermer</ion-item>
+    </ion-list>
+</div>
