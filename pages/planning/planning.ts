@@ -28,12 +28,17 @@ export class PlanningPage {
   private newSlots: Array<any>;
 
   private thanks:boolean = false;
+  private header: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
               private userProvider: UserProvider,
               private dateProvider: DateProvider) {
     if (navParams.get('thanks'))
       this.thanks = true;
+
+    if (navParams.get('header')) {
+      this.header = navParams.get("header");
+    }
 
     if (navParams.get('slots') !== undefined) {
       this.newSlots = Object.keys(navParams.get('slots')).map(key => navParams.get('slots')[key]);

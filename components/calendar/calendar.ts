@@ -25,6 +25,7 @@ export class CalendarComponent {
 
   selectedDate: number;
   recurrence: boolean = true;
+  headerVisible: boolean = true;
   recurrentEnabled: boolean = false;
 
   reminder: boolean = false;
@@ -76,6 +77,12 @@ export class CalendarComponent {
   @Input()
   set recur(recur: boolean) {
     this.recurrence = recur;
+  }
+
+  @Input()
+  set header(header: boolean) {
+    console.log(header);
+    this.headerVisible = header;
   }
 
   prepareUserSlots() {
@@ -173,8 +180,8 @@ export class CalendarComponent {
           this.userProvider.getSlots().then(slots => {
             this.init(moment().format("YYYYMM"));
           });
-          this.displayAlert(newSlots);
-          this.navCtrl.setRoot(PlanningPage, {'thanks':true, 'slots': newSlots});
+          //this.displayAlert(newSlots);
+          this.navCtrl.setRoot(PlanningPage, {'header': this.headerVisible, 'thanks':true, 'slots': newSlots});
         })
         .catch(err => {
           console.log(err);
