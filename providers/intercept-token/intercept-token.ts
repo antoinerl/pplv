@@ -1,21 +1,25 @@
 import { Injectable } from "@angular/core";
 import {
+  HttpClient,
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
   HttpEvent,
-  HttpHeaders
+  HttpHeaders,
+  HttpParams
 } from "@angular/common/http";
 import { Storage } from "@ionic/storage";
 
 import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
 import { mergeMap } from "rxjs/operators/mergeMap";
+import { map } from "rxjs/operators";
 
 @Injectable()
 export class InterceptTokenProvider implements HttpInterceptor {
   constructor(
-    private storage: Storage
+    private storage: Storage,
+    public http: HttpClient
   ) {}
 
   private getToken(): Promise<any> {
@@ -36,16 +40,23 @@ export class InterceptTokenProvider implements HttpInterceptor {
   }
 
   private isExpired(token): boolean {
-
+    return false;
   }
 
-  private refreshToken(): Promise<Any> {
+  private refreshToken(user: any): Promise<any> {
     let params = new HttpParams()
-          .set('id', String(this.user.ID))
-          .set('refresh_token', this.user.meta.refresh_token);
+          .set('id', String(user.ID))
+          .set('refresh_token', user.meta.refresh_token);
 
-    this.http.get("https://ws.prionspourlavie.fr/persons/refreshToken", {params: params}).then( token => {
-        resolve(token);
+    return new Promise(resolve => {
+        this.http.get("https://ws.prionspourlavie.fr/persons/refreshToken", {params: params}).pipe(
+            map(
+                (jsonArray: Object[]) => jsonArray.map(jsonItem => jsonItem)
+            )).subscribe( token => {
+                user.meta.token = token;
+                this.storage.set("user", user);
+                resolve(token);
+            });
     });
   }
 
