@@ -26,7 +26,7 @@ import {WeekdayPipe} from '../pipes/weekday/weekday';
 import { APP_CONFIG, AppConfig } from './app.config';
 import { IonicStorageModule } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,6 +35,7 @@ import { WpProvider } from '../providers/wp/wp';
 import { DateProvider } from '../providers/date/date';
 import { PrayersProvider } from '../providers/prayers/prayers';
 import { UserProvider } from '../providers/user/user';
+import { InterceptTokenProvider } from '../providers/intercept-token/intercept-token';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { UserProvider } from '../providers/user/user';
     Network,
     WpProvider,
     { provide: APP_CONFIG, useValue: AppConfig },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptTokenProvider, multi: true },
     DateProvider,
     PrayersProvider,
     UserProvider,

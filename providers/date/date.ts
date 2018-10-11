@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 
 import { UserProvider } from '../user/user';
+import { map } from "rxjs/operators";
 
 /*
   Generated class for the DateProvider provider.
@@ -66,13 +67,15 @@ export class DateProvider {
 
       let params = new HttpParams()
           .set('_id', String(user.ID))
-          .set('password', user.data.user_pass)
           .set('from', String(time))
           .set('nth', nth)
           .set('day_of_week', day_of_week);
 
-      this.http.get(this.config.wsURL + "/persons/addTimePerson.php", {params: params}) 
-        .subscribe(data => {
+      this.http.get(this.config.wsURL + "/persons/addTimePerson.php", {params: params}).pipe(
+         map(
+            (jsonArray: Object[]) => jsonArray.map(jsonItem => jsonItem)
+          )
+        ).subscribe(data => {
           delete this.date;
           delete this.hour;
           resolve(data);

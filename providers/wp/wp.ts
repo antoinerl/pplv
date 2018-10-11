@@ -28,14 +28,13 @@ export class WpProvider {
 
   getItems(slug): Promise <any> {
     return new Promise( (resolve, reject) => {
-      if (this.platform.is('cordova')) {
         if (this.network.type === 'none') {
           this.getWpContentFromStorage(slug, resolve, reject);
         }
         else {
           this.downloadWpContent(slug, resolve, reject);
         }
-      }
+      
     });
   }
 
@@ -43,8 +42,6 @@ export class WpProvider {
     let pageName = "page_"+id;
     return new Promise( (resolve, reject) => {
       console.log("ici");
-      if (this.platform.is('cordova')) {
-        console.log("cordova");
         if (this.network.type === 'none') {
           console.log("pas de reseau");
           this.getWpContentFromStorage(pageName, resolve, reject);
@@ -52,7 +49,7 @@ export class WpProvider {
           console.log("reseau");
           this.downloadWpPage(id, resolve, reject);
         }
-      }
+      
     });
   }
 
@@ -87,6 +84,7 @@ export class WpProvider {
 
   downloadWpPage(id, resolve, reject) {
     let namePage = "page_" + id;
+    
     this.http.get(this.config.wpURL + "/ws/get_page/?id=" + id, {}) 
       .subscribe(data => {
         /*

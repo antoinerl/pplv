@@ -1,7 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
 import { Storage } from '@ionic/storage';
+import { map } from "rxjs/operators";
 
 /*
   Generated class for the UserProvider provider.
@@ -30,19 +31,23 @@ export class UserProvider {
 
   getSlots() {
     let params = new HttpParams()
-          .set('id', String(this.user.ID))
-          .set('token', String(this.user.data.user_pass));
+          .set('id', String(this.user.ID));
 
+    let headers = new HttpHeaders()
+          .set('token', "TOKEN");
 
     return new Promise(resolve => {
-        this.http.get(this.config.wsURL + "/persons/getSlots.php", { params: params }).subscribe(data => {
-            var arr = Object.keys(data).map(key => data[key]);
-            arr.sort((n1,n2) => n1 - n2); 
-            this.user.slots = arr;
-            resolve(arr);
-          }, err => {
-            console.log(err);
-          });
+      this.http.get(this.config.wsURL + "/persons/getSlots.php", { 'params': params, 'headers': headers })
+        .pipe(
+          map(
+            (jsonArray: Object[]) => jsonArray.map(jsonItem => jsonItem)
+          )
+        ).subscribe( (data: any) => {
+          var arr = Object.keys(data).map(key => data[key]);
+              arr.sort((n1,n2) => n1 - n2); 
+              this.user.slots = arr;
+              resolve(arr);
+        });
       });
   }
 
