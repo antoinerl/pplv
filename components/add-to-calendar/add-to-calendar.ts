@@ -21,8 +21,8 @@ export class AddToCalendarComponent {
                 public viewCtrl: ViewController, 
                 private sanitizer: DomSanitizer) {
     let user = userProvider.getUser();
-    this.urlICS = encodeURIComponent("http://ical.prionspourlavie.fr/getICS.php?id="+user.ID+"&token="+user.data.user_pass);
-    this.webcalICS = sanitizer.bypassSecurityTrustUrl("webcal://ical.prionspourlavie.fr/getICS.php?id="+user.ID+"&token="+user.data.user_pass);
+    this.urlICS = encodeURIComponent("http://ical.prionspourlavie.fr/getICS.php?id="+user.ID+"&token="+user.data.meta.calendar_token);
+    this.webcalICS = sanitizer.bypassSecurityTrustUrl("webcal://ical.prionspourlavie.fr/getICS.php?id="+user.ID+"&token="+user.data.meta.calendar_token);
   }
 
   dismiss() {
