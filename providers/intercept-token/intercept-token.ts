@@ -28,13 +28,16 @@ export class InterceptTokenProvider implements HttpInterceptor {
      * Si c'est le cas, refresh du token.
      * @returns {Promise}
      */
-    return new Promise(resolve => {
+    return new Promise( (resolve, reject) => {
       this.storage.get("user").then(_user => {
-        console.log(_user);
+        if (_user == null)
+          resolve("EMPTY_TOKEN");
+        else {
           //this.authService.refresh().then(() => {
           //  resolve(_user.data.token);
           //});
-        resolve(_user.data.meta.token);
+          resolve(_user.data.meta.token);
+        }
       });
     });
   }

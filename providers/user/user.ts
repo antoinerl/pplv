@@ -103,4 +103,27 @@ export class UserProvider {
       });
   }
 
+  getUserFromToken(id: string, token: string) {
+    let body = new HttpParams({
+      fromObject : {
+        'id' : id,
+        'token' : token
+      }
+    });
+
+    return new Promise( (resolve, reject) => {
+        this.http.post(this.config.wsURL + "/persons/getUserFromToken.php", body).subscribe(data => {
+            if ('error' in data)
+              reject(data);
+            else {
+              this.user = data;
+              this.storage.set("user", this.user);
+              resolve(data);
+            }
+          }, err => {
+            console.log(err);
+          });
+      });
+  }
+
 }
