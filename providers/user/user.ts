@@ -128,4 +128,9 @@ export class UserProvider {
       });
   }
 
+  disconnect() {
+    this.user = null;
+    this.storage.remove("user");
+  }
+
 }

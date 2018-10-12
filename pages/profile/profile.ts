@@ -82,5 +82,9 @@ export class ProfilePage {
         this.isItemOpened = false;
     }
   }
+  
+  private disconnect() {
+    this.userProvider.disconnect();
+  }
 
 }
