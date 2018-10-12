@@ -43,7 +43,8 @@ export class CalendarPage {
   }
 
   ionViewDidEnter() {
-    this.calendar.load();
+    if (userProvider.isLogged())
+      this.calendar.load();
   }
 
   openPlanning() {
