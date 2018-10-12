@@ -27,6 +27,7 @@ export class UserProvider {
 
   setUser(u) {
     this.user = u;
+    this.storage.set("user", u);
   }
 
   getSlots() {
