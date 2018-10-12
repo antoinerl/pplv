@@ -71,7 +71,10 @@ export class DateProvider {
           .set('nth', nth)
           .set('day_of_week', day_of_week);
 
-      this.http.get(this.config.wsURL + "/persons/addTimePerson.php", {params: params}).pipe(
+      let headers = new HttpHeaders()
+          .set('token', "TOKEN");
+
+      this.http.get(this.config.wsURL + "/persons/addTimePerson.php", { 'params': params, 'headers': headers }).pipe(
          map(
             (jsonArray: Object[]) => jsonArray.map(jsonItem => jsonItem)
           )
@@ -99,7 +102,10 @@ export class DateProvider {
         params = params.set('day_of_week', String(day_of_week));
       }
 
-      this.http.get(this.config.wsURL + "/persons/delTimePerson.php", {params: params}) 
+      let headers = new HttpHeaders()
+          .set('token', "TOKEN");
+
+      this.http.get(this.config.wsURL + "/persons/delTimePerson.php", { 'params': params, 'headers': headers }) 
         .subscribe(data => {
           resolve("ok");
         }, err => {
