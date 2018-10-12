@@ -3,6 +3,7 @@ import { NavController, NavParams, IonicPage, ItemSliding } from 'ionic-angular'
 import { UserProvider } from '../../providers/user/user';
 import { DateformatPipe } from '../../pipes/dateformat/dateformat';
 import { Component, ViewChildren, QueryList } from '@angular/core';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ProfilePage page.
@@ -85,6 +86,7 @@ export class ProfilePage {
   
   private disconnect() {
     this.userProvider.disconnect();
+    this.navCtrl.setRoot(HomePage);
   }
 
 }
