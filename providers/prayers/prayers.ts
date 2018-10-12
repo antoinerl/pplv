@@ -25,7 +25,7 @@ export class PrayersProvider {
         .set('time', "false");
         
     if (time) {
-        params.set('time', "true");
+        params = params.set('time', "true");
     }
     return new Promise(resolve => {
         this.http.get(this.config.wsURL + "/prayers/getPrayers.php", { params: params })
