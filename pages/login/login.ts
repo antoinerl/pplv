@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -41,7 +42,7 @@ export class LoginPage {
 
   createAccount() {
     this.userProvider.createAccount(this.username, this.password, this.department).then( (data) => {
-        console.log(data);
+        this.navCtrl.setRoot(HomePage);
     }).catch( (err) => {
         this.errorMsgCA = err.error;
     });
