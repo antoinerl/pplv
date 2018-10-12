@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import * as moment from 'moment';
 import { APP_CONFIG, IAppConfig } from '../../app/app.config';
