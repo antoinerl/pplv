@@ -34,7 +34,7 @@ export class CalendarPage {
       this.token = decodeURIComponent(navParams.get('token'));
       this.header = navParams.get('header');
 
-      userProvider.setUser({"ID": this.id, "data": {"user_pass": this.token} } );
+      userProvider.setUser({"ID": this.id, "data": {"meta": { "token" : this.token} } } );
     } else {
       this.navCtrl.push(LoginPage, {"close": "true"})
     }
