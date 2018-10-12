@@ -117,8 +117,10 @@ export class UserProvider {
               reject(data);
             else {
               this.user = data;
-              this.storage.set("user", this.user);
-              resolve(data);
+              this.storage.set("user", this.user).then( data => {
+                resolve(data);
+              })
+              
             }
           }, err => {
             console.log(err);

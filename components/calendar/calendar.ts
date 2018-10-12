@@ -81,7 +81,6 @@ export class CalendarComponent {
 
   @Input()
   set header(header: boolean) {
-    console.log(header);
     this.headerVisible = header;
   }
 
