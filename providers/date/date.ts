@@ -65,6 +65,8 @@ export class DateProvider {
 
       let user = this.userProvider.getUser();
 
+      console.log(user);
+
       let params = new HttpParams()
           .set('_id', String(user.ID))
           .set('from', String(time))
@@ -73,6 +75,8 @@ export class DateProvider {
 
       let headers = new HttpHeaders()
           .set('token', "TOKEN");
+
+          console.log(this.config.wsURL + "/persons/addTimePerson.php");
 
       this.http.get(this.config.wsURL + "/persons/addTimePerson.php", { 'params': params, 'headers': headers }).pipe(
          map(
