@@ -4,6 +4,7 @@ import { UserProvider } from '../../providers/user/user';
 import { DateformatPipe } from '../../pipes/dateformat/dateformat';
 import { Component, ViewChildren, QueryList } from '@angular/core';
 import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ProfilePage page.
