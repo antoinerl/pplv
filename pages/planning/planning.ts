@@ -25,10 +25,13 @@ export class PlanningPage {
   private user: any;
   private isItemOpened: boolean = false;
 
+  private id:string;
+  private token:string;
+  private header:boolean = true;
+
   private newSlots: Array<any>;
 
   private thanks:boolean = false;
-  private header: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
               private userProvider: UserProvider,
@@ -44,22 +47,26 @@ export class PlanningPage {
       this.newSlots = Object.keys(navParams.get('slots')).map(key => navParams.get('slots')[key]);
     } 
 
-    if (userProvider.isLogged())
+    if (userProvider.isLogged()) {
+      this.load();
       return;
-/*
+    }
+
     this.id = navParams.get('id');
     if (this.id) {
       this.token = decodeURIComponent(navParams.get('token'));
       this.header = navParams.get('header');
 
-      userProvider.setUser({"ID": this.id, "data": {"user_pass": this.token} } );
+      userProvider.getUserFromToken(this.id, this.token).then( () => {
+        this.load();
+      });
     } else {
-*/
+
       this.navCtrl.push(LoginPage, {"close": "true"})
-//    }
+    }
   }
 
-  ngOnInit() {
+  load() {
     this.user = this.userProvider.getUser();
     if (!this.user.slots) {
         this.userProvider.getSlots();

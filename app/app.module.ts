@@ -71,7 +71,7 @@ import { InterceptTokenProvider } from '../providers/intercept-token/intercept-t
       { component: PlanningPage, name: 'planning', segment: 'planning/:id/:token/:header' },
       { component: CommentPrierPage, name: 'comment-prier', segment: 'comment-prier' },
       { component: LoginPage, name: 'login', segment: 'login' },
-      { component: ProfilePage, name: 'profile', segment: 'profile' }
+      { component: ProfilePage, name: 'profile', segment: 'profile/:id/:token/:header' }
     ]
   }),
 

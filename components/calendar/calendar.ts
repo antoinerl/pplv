@@ -175,8 +175,6 @@ export class CalendarComponent {
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 
-      console.log("valid");
-
     this.dateProvider.valid().then(newSlots => {
           this.userProvider.getSlots().then(slots => {
             this.init(moment().format("YYYYMM"));
