@@ -24,7 +24,41 @@
         <span>Synchroniser mon calendrier</span>
     </button>
 
-    <ion-list>
+    <div>
+      <ion-item class="toggleReminder">
+        <ion-label>Recevoir un rappel par email</ion-label>
+        <ion-toggle [(ngModel)]="reminderMail"  (ngModelChange)="toggleMailReminder()"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="reminderMail">
+        <ion-select [(ngModel)]="reminderMailTime">
+          <ion-option value="15">15 minutes avant</ion-option>
+          <ion-option value="30">30 minutes avant</ion-option>
+          <ion-option value="60">1 heure avant</ion-option>
+          <ion-option value="120">2 heures avant</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="toggleReminder" *ngIf="false">
+        <ion-label>Recevoir une notification sur l'application</ion-label>
+        <ion-toggle [(ngModel)]="reminderNotif"  (ngModelChange)="toggleNotifReminder()"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="reminderNotif">
+        <ion-select [(ngModel)]="reminderNotifTime">
+          <ion-option value="15">15 minutes avant</ion-option>
+          <ion-option value="30">30 minutes avant</ion-option>
+          <ion-option value="60">1 heure avant</ion-option>
+          <ion-option value="120">2 heures avant</ion-option>
+        </ion-select>
+      </ion-item>
+
+    </div>
+
+    <button id="toggleHours" ion-button color="secondary" full (click)="toggleHours()">
+        <ion-icon name="time"></ion-icon>
+        <span>Gérer mes heures de prières</span>
+         <ion-icon name="arrow-dropdown"></ion-icon>
+    </button>
+
+    <ion-list *ngIf="prayerHours">
         <ion-item-sliding #slidingItem *ngFor="let slot of user?.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
             <ion-item *ngIf="isNewSlot(slot)">
                 {{slot | dateformat}}

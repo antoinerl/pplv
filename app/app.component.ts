@@ -39,12 +39,12 @@ export class MyApp {
 
     this.pages = [
       { title: 'Accueil', component: HomePage, params: {} },
-      { title: 'Calendrier/ Planning', component: CalendarPage, params: {'id': 0, 'token': 0, 'header': 'false'} },
+      { title: 'Calendrier/ Planning', component: CalendarPage, params: {'id': 0, 'token': 0} },
       /*{ title: 'Planning', component: PlanningPage, params: {} },*/
       { title: 'Comment prier ?', component: CommentPrierPage, params: {} },
       { title: 'Prières', component: PrieresPage, params: {'slug' : 'prieres'} },
       { title: 'Témoignages', component: TemoignagesPage, params: {'slug' : 'temoignages'} },
-      { title: 'Mon profil', component: ProfilePage, params: {} },
+      { title: 'Mon profil', component: ProfilePage, params: {'id': 0, 'token': 0} },
       { title: 'Connexion', component: LoginPage, params: {"close":"true"} }
     ];
 

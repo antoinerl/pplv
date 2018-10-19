@@ -13,4 +13,12 @@ page-planning {
     button.button-full {
         margin-bottom: 20px;
     }
+
+    button#toggleHours {
+        margin-top: 50px;
+    }
+
+    .toggleReminder ion-label {
+        font-weight: 600;
+    }
 }

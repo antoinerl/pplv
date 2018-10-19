@@ -24,32 +24,6 @@
     <h2>Inscription</h2>
     <recurrent-menu [selectedDate]=selectedDate [enabled]=recurrentEnabled></recurrent-menu>
 
-    <div>
-      <ion-item>
-        <ion-label class="toggleReminder">Recevoir un rappel</ion-label>
-        <ion-toggle [(ngModel)]="reminder"  (ngModelChange)="setReminder(reminder)" [disabled]="!recurrentEnabled"></ion-toggle>
-      </ion-item>
-      <ion-item *ngIf="mobile">
-        <ion-label>Avant par email</ion-label>
-        <ion-select [(ngModel)]="reminderTime">
-          <ion-option value="15">15 minutes</ion-option>
-          <ion-option value="30">30 minutes</ion-option>
-          <ion-option value="60">1 heure</ion-option>
-          <ion-option value="120">2 heures</ion-option>
-        </ion-select>
-      </ion-item>
-      <div *ngIf="!mobile" class="selectReminder disabled">
-        <select>
-          <option value="15">15 minutes</option>
-            <option value="30">30 minutes</option>
-            <option value="60">1 heure</option>
-            <option value="120">2 heures</option>
-        </select>
-        <span> avant par email</span>
-      </div>
-
-    </div>
-
     <p>Pour être sûr que votre engagement est toujours d'actualité, nous vous prions de bien vouloir le renouveler tous les 6 mois</p>
 
     <button ion-button primary class="valid disabled" id="valid" (click)="valid()">Je m'inscris</button>

@@ -28,8 +28,6 @@ export class CalendarComponent {
   headerVisible: boolean = true;
   recurrentEnabled: boolean = false;
 
-  reminder: boolean = false;
-
   dates: string[];
 	type: 'moment'; // 'string' | 'js-date' | 'moment' | 'time' | 'object';
 	hours: number[] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
@@ -159,16 +157,6 @@ export class CalendarComponent {
     $("#hour_"+hour).addClass("selected");
     this.recurrentEnabled = true;
     $(".valid").removeClass("disabled");
-  }
-
-  setReminder(value) {
-    if (value) {
-      alert("Cette fonctionnalité n'est pas encore disponible");
-      this.reminder = false;
-      //$(".selectReminder").removeClass("disabled");
-    } else {
-      $(".selectReminder").addClass("disabled");
-    }
   }
 
   valid() {

@@ -3,7 +3,7 @@ import { UserProvider } from '../../providers/user/user';
 import { DateProvider } from '../../providers/date/date';
 import { DateformatPipe } from '../../pipes/dateformat/dateformat';
 import { Component, ViewChildren, QueryList } from '@angular/core';
-
+import * as $ from "jquery";
 import { CalendarPage } from '../../pages/calendar/calendar';
 import { LoginPage } from '../../pages/login/login';
 import { AddToCalendarComponent } from '../../components/add-to-calendar/add-to-calendar';
@@ -28,6 +28,14 @@ export class PlanningPage {
   private id:string;
   private token:string;
   private header:boolean = true;
+
+  reminderMail: boolean = false;
+  reminderNotif: boolean = false;
+
+  reminderMailTime: number = 15;
+  reminderNotifTime: number = 15;
+
+  private prayerHours:boolean = false;
 
   private newSlots: Array<any>;
 
@@ -130,6 +138,18 @@ export class PlanningPage {
 
   openAgenda() {
     this.navCtrl.setRoot(CalendarPage);
+  }
+
+  toggleMailReminder() {
+    
+  }
+
+  toggleNotifReminder() {
+    
+  }
+
+  toggleHours() {
+    this.prayerHours=!this.prayerHours;
   }
 
 }
