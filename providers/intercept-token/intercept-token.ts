@@ -73,6 +73,8 @@ export class InterceptTokenProvider implements HttpInterceptor {
      * @returns {Observable}
      */
 
+     console.log(req.headers);
+
      if (req.headers.get("token") == null) {
         return next.handle(req);
      }

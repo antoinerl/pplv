@@ -140,8 +140,12 @@ export class PlanningPage {
     this.navCtrl.setRoot(CalendarPage);
   }
 
-  toggleMailReminder() {
-    
+  toggleMailReminder() {  
+    if (this.reminderMail) {
+      this.dateProvider.setReminder(String(this.reminderMailTime));
+    } else {
+      this.dateProvider.setReminder("delete");
+    }
   }
 
   toggleNotifReminder() {
@@ -149,6 +153,7 @@ export class PlanningPage {
   }
 
   toggleHours() {
+    this.newSlots = undefined;
     this.prayerHours=!this.prayerHours;
   }
 

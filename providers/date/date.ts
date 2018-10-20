@@ -95,7 +95,6 @@ export class DateProvider {
 
       let params = new HttpParams()
           .set('_id', String(user.ID))
-          .set('password', user.data.user_pass)
           .set('from', String(slot));
       if (recur) {
         let day_of_week = moment(slot*1000).utc().format("d");
@@ -112,5 +111,29 @@ export class DateProvider {
           reject(err);
         });
     });
+  }
+
+  setReminder(value) {
+    let user = this.userProvider.getUser();
+
+    let body = new HttpParams({
+      fromObject : {
+        '_id' : String(user.ID),
+        'remindermail' : value
+      }
+    });
+
+    let headers = new HttpHeaders()
+          .set('token', "TOKEN");
+
+    let options = { headers: headers };
+
+    return new Promise( (resolve, reject) => {
+        this.http.post(this.config.wsURL + "/reminder/setReminder.php", body, options).subscribe(data => {
+            resolve("ok");
+          }, err => {
+            console.log(err);
+          });
+      });
   }
 }
