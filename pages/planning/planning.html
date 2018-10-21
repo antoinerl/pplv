@@ -27,10 +27,10 @@
     <div>
       <ion-item class="toggleReminder">
         <ion-label>Recevoir un rappel par email</ion-label>
-        <ion-toggle [(ngModel)]="reminderMail"  (ngModelChange)="toggleMailReminder()"></ion-toggle>
+        <ion-toggle [(ngModel)]="user?.data.meta.reminderMail"  (ngModelChange)="toggleMailReminder()"></ion-toggle>
       </ion-item>
-      <ion-item *ngIf="reminderMail">
-        <ion-select [(ngModel)]="reminderMailTime" (ngModelChange)="toggleMailReminder()">
+      <ion-item *ngIf="this.user?.data.meta.reminderMail">
+        <ion-select [(ngModel)]="this.user?.data.meta.reminderMailTime" (ngModelChange)="toggleMailReminder()">
           <ion-option value="15">15 minutes avant</ion-option>
           <ion-option value="30">30 minutes avant</ion-option>
           <ion-option value="60">1 heure avant</ion-option>

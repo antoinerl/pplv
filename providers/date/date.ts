@@ -130,6 +130,7 @@ export class DateProvider {
 
     return new Promise( (resolve, reject) => {
         this.http.post(this.config.wsURL + "/reminder/setReminder.php", body, options).subscribe(data => {
+            this.userProvider.getUserFromToken(user.ID, user.data.meta.token);
             resolve("ok");
           }, err => {
             console.log(err);

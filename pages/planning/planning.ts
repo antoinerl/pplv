@@ -29,10 +29,7 @@ export class PlanningPage {
   private token:string;
   private header:boolean = true;
 
-  reminderMail: boolean = false;
   reminderNotif: boolean = false;
-
-  reminderMailTime: number = 15;
   reminderNotifTime: number = 15;
 
   private prayerHours:boolean = false;
@@ -141,8 +138,10 @@ export class PlanningPage {
   }
 
   toggleMailReminder() {  
-    if (this.reminderMail) {
-      this.dateProvider.setReminder(String(this.reminderMailTime));
+    if (this.user.data.meta.reminderMail) {
+      if (!this.user.data.meta.reminderMailTime) 
+        this.user.data.meta.reminderMailTime = 15;
+      this.dateProvider.setReminder(String(this.user.data.meta.reminderMailTime));
     } else {
       this.dateProvider.setReminder("delete");
     }
