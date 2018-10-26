@@ -85,6 +85,7 @@ export class CalendarComponent {
   prepareUserSlots() {
     let slots = this.userProvider.getUser().slots;
     for (let slot in slots) {
+    console.log("kikoo");
       this._daysConfig.push({
             date: new Date(moment(slots[slot]*1000).utc().format("YYYY-MM-DD H:mm:ss")),
             cssClass: 'already-selected'
