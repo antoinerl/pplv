@@ -49,14 +49,19 @@ export class PlanningPage {
     }
 
     if (typeof navParams.get('slots') !== "undefined") {
+      console.log("ici");
       this.newSlots = Object.keys(navParams.get('slots')).map(key => navParams.get('slots')[key]);
     } 
 
     if (userProvider.isLogged()) {
+      console.log("ici2");
       this.load();
+      console.log("ici3");
       return;
     }
 
+
+    console.log("ici4");
     this.id = navParams.get('id');
     if (this.id) {
       this.token = decodeURIComponent(navParams.get('token'));
@@ -72,13 +77,17 @@ export class PlanningPage {
   }
 
   load() {
+  console.log("ici5");
     this.user = this.userProvider.getUser();
+    console.log("ici6");
     if (!this.user.slots) {
+    console.log("ici7");
         this.userProvider.getSlots();
     }
   }
 
   ionViewDidLoad() {
+    console.log("ici8");
   }
 
   delete(slot, recur) {
