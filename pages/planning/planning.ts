@@ -53,6 +53,7 @@ export class PlanningPage {
     } 
 
     if (userProvider.isLogged()) {
+    console.log("ici");
       this.load();
       return;
     }
@@ -154,8 +155,6 @@ export class PlanningPage {
   toggleHours() {
     this.newSlots = undefined;
     this.prayerHours=!this.prayerHours;
-
-    console.log(this.newSlots + " "+this.prayerHours);
   }
 
 }
