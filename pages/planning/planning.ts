@@ -45,7 +45,7 @@ export class PlanningPage {
       this.thanks = true;
 
     if (navParams.get('header')) {
-      this.header = navParams.get("header");
+      this.header = navParams.get("header") === "true";
     }
 
     if (typeof navParams.get('slots') !== "undefined") {
@@ -60,14 +60,12 @@ export class PlanningPage {
     this.id = navParams.get('id');
     if (this.id) {
       this.token = decodeURIComponent(navParams.get('token'));
-      this.header = navParams.get('header');
 
       userProvider.getUserFromToken(this.id, this.token).then( () => {
-      console.log("loading from scratch");
         this.load();
       });
     } else {
-
+console.log("planning pas d'id ! " + userProvider.isLogged());
       this.navCtrl.push(LoginPage, {"close": "true"})
     }
   }
