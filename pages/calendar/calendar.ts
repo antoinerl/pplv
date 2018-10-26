@@ -28,27 +28,14 @@ export class CalendarPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
 
     if (navParams.get('header')) {
-      this.header = navParams.get("header");
+      this.header = navParams.get("header") === "true";
     }
-
-console.log("constructor " + this.header);
-
-if (this.header) {
-  console.log("ici");
-}
-
-if (!this.header) {
-  console.log("la");
-}
 
     if (this.header && userProvider.isLogged()) {
-    console.log("wtf");
       return;
     }
-console.log("curieux...");
-    this.id = navParams.get('id');
 
-console.log(this.id);
+    this.id = navParams.get('id');
 
     if (this.id) {
       this.token = decodeURIComponent(navParams.get('token'));
