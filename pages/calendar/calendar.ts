@@ -51,7 +51,6 @@ export class CalendarPage {
   }
 
   ionViewDidEnter() {
-  console.log("did enter");
       this.calendar.load();
   }
 

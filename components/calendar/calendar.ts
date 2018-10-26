@@ -113,6 +113,7 @@ export class CalendarComponent {
   }
 
 	onChange($event) {
+  alert("ici");
     let unixUTC = moment.tz($event.format("YYYY-MM-DD"), "UTC").unix();
     this.dateProvider.setSelectedDate(unixUTC);
     this.selectedDate = this.dateProvider.getSelectedDate();
