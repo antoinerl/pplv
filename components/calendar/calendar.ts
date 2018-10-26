@@ -113,12 +113,13 @@ export class CalendarComponent {
   }
 
 	onChange($event) {
-  alert("ici");
+
     let unixUTC = moment.tz($event.format("YYYY-MM-DD"), "UTC").unix();
     this.dateProvider.setSelectedDate(unixUTC);
     this.selectedDate = this.dateProvider.getSelectedDate();
 
     this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours(unixUTC, data));
+    alert("ici");
 
 	}  
 
