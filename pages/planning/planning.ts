@@ -53,7 +53,6 @@ export class PlanningPage {
     } 
 
     if (userProvider.isLogged()) {
-    console.log("ici");
       this.load();
       return;
     }
@@ -89,7 +88,10 @@ export class PlanningPage {
   }
 
   isNewSlot(slot) {
-    return this.newSlots === undefined || this.newSlots.some(e => e == slot);
+    console.log("toto");
+    let newSlot = this.newSlots === undefined || this.newSlots.some(e => e == slot);
+    console.log("tata " + newSlot);
+    return newSlot;
   }
 
   presentSyncModal() {
@@ -135,7 +137,7 @@ export class PlanningPage {
   }
 
   openAgenda() {
-    this.navCtrl.setRoot(CalendarPage);
+    this.navCtrl.setRoot(CalendarPage, {"header": this.header});
   }
 
   toggleMailReminder() {  
