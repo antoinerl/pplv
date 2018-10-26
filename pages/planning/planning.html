@@ -61,7 +61,7 @@
 
     <ion-list *ngIf="prayerHours || newSlots !== undefined">
         <ion-item-sliding #slidingItem *ngFor="let slot of user?.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
-            <ion-item>
+            <ion-item *ngIf="isNewSlot(slot)">
                 {{slot | dateformat}}
             </ion-item>
             <ion-item-options side="right">

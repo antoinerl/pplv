@@ -48,7 +48,7 @@ export class PlanningPage {
       this.header = navParams.get("header");
     }
 
-    if (navParams.get('slots') !== undefined) {
+    if (typeof navParams.get('slots') !== "undefined") {
       this.newSlots = Object.keys(navParams.get('slots')).map(key => navParams.get('slots')[key]);
     } 
 
