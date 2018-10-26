@@ -32,9 +32,9 @@ export class CalendarPage {
     }
 
     if (!this.header) {
+      console.log("disconnect");
       this.userProvider.disconnect();
     } else if (userProvider.isLogged()) {
-      this.load();
       return;
     }
 
