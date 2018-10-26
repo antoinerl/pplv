@@ -47,6 +47,7 @@ export class UserProvider {
           var arr = Object.keys(data).map(key => data[key]);
               arr.sort((n1,n2) => n1 - n2); 
               this.user.slots = arr;
+              setUser(this.user);
               resolve(arr);
         });
       });
