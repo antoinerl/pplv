@@ -33,6 +33,14 @@ export class CalendarPage {
 
 console.log("constructor " + this.header);
 
+if (this.header) {
+  console.log("ici");
+}
+
+if (!this.header) {
+  console.log("la");
+}
+
     if (this.header && userProvider.isLogged()) {
     console.log("wtf");
       return;
