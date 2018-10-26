@@ -63,6 +63,7 @@ export class PlanningPage {
       this.header = navParams.get('header');
 
       userProvider.getUserFromToken(this.id, this.token).then( () => {
+      console.log("loading from scratch");
         this.load();
       });
     } else {

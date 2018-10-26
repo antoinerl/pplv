@@ -39,6 +39,7 @@ export class CalendarPage {
       this.header = navParams.get('header');
 
       userProvider.getUserFromToken(this.id, this.token).then( () => {
+      console.log("loading from scratch");
         this.calendar.load();
       });
     } else {
