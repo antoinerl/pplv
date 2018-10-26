@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header *ngIf="header">
+<ion-header *ngIf="header !== 'false'">
 
   <ion-navbar>
     <button ion-button menuToggle>
@@ -15,13 +15,13 @@
 
 </ion-header>
 
-<ion-content padding [ngClass]="header == 'false' ? 'iframe' : ''">
-    <h1 *ngIf="header == 'false'">
+<ion-content padding [ngClass]="header !== 'false' ? 'iframe' : ''">
+    <h1 *ngIf="!header">
         Je m'inscris pour prier
     </h1>
 
     <div id="calendar">
-        <calendar recur="true" [header]="header"></calendar>
+        <calendar recur="true" [header]="header !== 'false'"></calendar>
     </div>
 
     <button ion-button class="buttonFixed" (click)="openPlanning()">

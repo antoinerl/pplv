@@ -23,13 +23,15 @@ export class CalendarPage {
 
     private id:string;
     private token:string;
-    private header:boolean = true;
+    private header:boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
 
     if (navParams.get('header')) {
       this.header = navParams.get("header") !== "false";
     }
+
+    console.log(this.header);
 
     if (this.header && userProvider.isLogged()) {
       return;
@@ -51,7 +53,7 @@ export class CalendarPage {
   }
 
   ionViewDidEnter() {
-  console.log("loading " + this.userProvider.getUser());
+  console.log(this.userProvider.getUser());
       this.calendar.load();
   }
 
