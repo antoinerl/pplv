@@ -119,7 +119,6 @@ export class CalendarComponent {
     this.selectedDate = this.dateProvider.getSelectedDate();
 
     this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours(unixUTC, data));
-    alert("ici");
 
 	}  
 

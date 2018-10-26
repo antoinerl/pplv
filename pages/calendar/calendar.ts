@@ -28,7 +28,7 @@ export class CalendarPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
 
     if (navParams.get('header')) {
-      this.header = navParams.get("header") === "true";
+      this.header = navParams.get("header") !== "false";
     }
 
     if (userProvider.isLogged()) {

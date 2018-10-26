@@ -45,7 +45,7 @@ export class PlanningPage {
       this.thanks = true;
 
     if (navParams.get('header')) {
-      this.header = navParams.get("header") === "true";
+      this.header = navParams.get("header") !== "false";
     }
 
     if (typeof navParams.get('slots') !== "undefined") {
