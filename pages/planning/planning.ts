@@ -88,10 +88,7 @@ export class PlanningPage {
   }
 
   isNewSlot(slot) {
-    console.log("toto");
-    let newSlot = this.newSlots === undefined || this.newSlots.some(e => e == slot);
-    console.log("tata " + newSlot);
-    return newSlot;
+    return this.newSlots === undefined || this.newSlots.some(e => e == slot);
   }
 
   presentSyncModal() {
