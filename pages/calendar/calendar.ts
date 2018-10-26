@@ -26,6 +26,7 @@ export class CalendarPage {
     private header:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
+  console.log("constructor");
     if (navParams.get('header')) {
       this.header = navParams.get("header");
     }
@@ -48,6 +49,7 @@ export class CalendarPage {
   }
 
   ionViewDidEnter() {
+  console.log("did enter");
       this.calendar.load();
   }
 
