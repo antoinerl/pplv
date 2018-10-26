@@ -33,9 +33,11 @@ export class CalendarPage {
 
 console.log("constructor " + this.header);
 
-    if (this.header !== "false" && userProvider.isLogged())
+    if (this.header && userProvider.isLogged()) {
+    console.log("wtf");
       return;
-
+    }
+console.log("curieux...");
     this.id = navParams.get('id');
 
 console.log(this.id);
