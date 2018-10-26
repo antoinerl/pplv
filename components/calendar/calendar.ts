@@ -93,6 +93,7 @@ export class CalendarComponent {
   }
 
   displayPrayers(prayers) {
+  console.log(prayers);
   
     this.initHours();
       
