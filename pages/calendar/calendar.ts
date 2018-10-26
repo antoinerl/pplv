@@ -31,10 +31,9 @@ export class CalendarPage {
       this.header = navParams.get("header") !== "false";
     }
 
-    if (!this.header) {
-      console.log("disconnect");
-      this.userProvider.disconnect();
-    } else if (userProvider.isLogged()) {
+    console.log(this.header);
+
+    if (this.header && userProvider.isLogged()) {
       return;
     }
 
