@@ -154,6 +154,7 @@ export class PlanningPage {
   toggleHours() {
     this.newSlots = undefined;
     this.prayerHours=!this.prayerHours;
+    console.log(this.prayerHours);
   }
 
 }
