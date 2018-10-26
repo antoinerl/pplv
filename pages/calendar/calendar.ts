@@ -26,15 +26,20 @@ export class CalendarPage {
     private header:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
-  console.log("constructor");
+
     if (navParams.get('header')) {
       this.header = navParams.get("header");
     }
+
+console.log("constructor " + this.header);
 
     if (this.header && userProvider.isLogged())
       return;
 
     this.id = navParams.get('id');
+
+console.log(this.id);
+
     if (this.id) {
       this.token = decodeURIComponent(navParams.get('token'));
       this.header = navParams.get('header');
