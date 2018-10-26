@@ -51,7 +51,7 @@ export class CalendarPage {
   }
 
   ionViewDidEnter() {
-  console.log("loading " + userProvider.getUser());
+  console.log("loading " + this.userProvider.getUser());
       this.calendar.load();
   }
 
