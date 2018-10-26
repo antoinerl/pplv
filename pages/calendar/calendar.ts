@@ -23,7 +23,7 @@ export class CalendarPage {
 
     private id:string;
     private token:string;
-    private header:boolean = false;
+    private header:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
 
@@ -31,9 +31,10 @@ export class CalendarPage {
       this.header = navParams.get("header") !== "false";
     }
 
-    console.log(this.header);
-
-    if (this.header && userProvider.isLogged()) {
+    if (!this.header) {
+      this.userProvider.disconnect();
+    } else if (userProvider.isLogged()) {
+      this.load();
       return;
     }
 
