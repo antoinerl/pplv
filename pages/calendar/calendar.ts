@@ -30,7 +30,7 @@ export class CalendarPage {
       this.header = navParams.get("header");
     }
 
-    if (userProvider.isLogged())
+    if (this.header && userProvider.isLogged())
       return;
 
     this.id = navParams.get('id');
