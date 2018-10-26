@@ -31,7 +31,7 @@ export class CalendarPage {
       this.header = navParams.get("header") !== "false";
     }
 
-    if (userProvider.isLogged()) {
+    if (this.header && userProvider.isLogged()) {
       return;
     }
 
@@ -46,12 +46,12 @@ export class CalendarPage {
         this.calendar.load();
       });
     } else {
-    console.log(" calendar pas d'id ! " + userProvider.isLogged());
       this.navCtrl.push(LoginPage, {"close": "true"})
     }
   }
 
   ionViewDidEnter() {
+  console.log("loading " + userProvider.getUser());
       this.calendar.load();
   }
 

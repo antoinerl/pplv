@@ -62,10 +62,10 @@ export class PlanningPage {
       this.token = decodeURIComponent(navParams.get('token'));
 
       userProvider.getUserFromToken(this.id, this.token).then( () => {
+        console.log("loading from scratch");
         this.load();
       });
     } else {
-console.log("planning pas d'id ! " + userProvider.isLogged());
       this.navCtrl.push(LoginPage, {"close": "true"})
     }
   }
