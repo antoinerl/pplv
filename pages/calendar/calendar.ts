@@ -23,7 +23,7 @@ export class CalendarPage {
 
     private id:string;
     private token:string;
-    private header:boolean = true;
+    private header:boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
 
@@ -39,10 +39,8 @@ export class CalendarPage {
 
     if (this.id) {
       this.token = decodeURIComponent(navParams.get('token'));
-      this.header = navParams.get('header');
 
       userProvider.getUserFromToken(this.id, this.token).then( () => {
-      console.log("loading from scratch");
         this.calendar.load();
       });
     } else {
@@ -50,8 +48,7 @@ export class CalendarPage {
     }
   }
 
-  ionViewDidEnter() {
-  console.log(this.userProvider.getUser());
+  ionViewDidEnter() {  
       this.calendar.load();
   }
 

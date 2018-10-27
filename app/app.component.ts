@@ -85,11 +85,11 @@ export class MyApp {
     let page;
     switch(event.data) {
       case "calendar" : {
-        page = {component: CalendarPage, params: {"header": 'false'} };
+        page = {title: "Calendrier", component: CalendarPage, params: {"header": 'false'} };
         break;
       }
       case "planning" : {
-        page = {component: PlanningPage, params: {"header": 'false'} }
+        page = {title: "Planning", component: PlanningPage, params: {"header": 'false'} }
         break;
       }
     }
@@ -107,6 +107,7 @@ export class MyApp {
   }
 
   openPage(page) {
+  console.log(page);
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     if (page.title == "Connexion")

@@ -62,7 +62,6 @@ export class PlanningPage {
       this.token = decodeURIComponent(navParams.get('token'));
 
       userProvider.getUserFromToken(this.id, this.token).then( () => {
-        console.log("loading from scratch");
         this.load();
       });
     } else {
