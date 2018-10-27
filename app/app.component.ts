@@ -79,8 +79,8 @@ export class MyApp {
   }
 
   receiveMessage: any = (event: any) => {
-    if (event.origin !== "https://www.prionspourlavie.fr")
-      return;
+    //if (event.origin !== "https://www.prionspourlavie.fr")
+      //return;
 
     let page;
     switch(event.data) {
