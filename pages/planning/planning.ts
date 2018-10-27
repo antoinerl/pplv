@@ -52,7 +52,7 @@ export class PlanningPage {
       this.newSlots = Object.keys(navParams.get('slots')).map(key => navParams.get('slots')[key]);
     } 
 
-    if (this.header && userProvider.isLogged()) {
+    if (userProvider.isLogged()) {
       this.load();
       return;
     }

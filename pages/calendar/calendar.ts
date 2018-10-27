@@ -31,9 +31,7 @@ export class CalendarPage {
       this.header = navParams.get("header") !== "false";
     }
 
-    console.log(this.header);
-
-    if (this.header && userProvider.isLogged()) {
+    if (userProvider.isLogged()) {
       return;
     }
 
