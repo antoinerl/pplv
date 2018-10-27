@@ -34,13 +34,13 @@ export class MyApp {
               public splashScreen: SplashScreen,
               private storage: Storage,
               private userProvider: UserProvider) {
-/*
+
     if (window.addEventListener) {
        window.addEventListener("message", this.receiveMessage.bind(this), false);
      } else {
         (<any>window).attachEvent("onmessage", this.receiveMessage.bind(this));
      }
-*/
+
     this.initializeApp();
 
     this.pages = [
@@ -74,11 +74,13 @@ export class MyApp {
         connectPage.component = ProfilePage;
         */
       })
-
+/*
       window.addEventListener("message", () => {
         this.receiveMessage();
       }, false);
+*/
     });
+
   }
 
   receiveMessage: any = (event: any) => {
