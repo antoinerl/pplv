@@ -68,7 +68,17 @@ export class MyApp {
         connectPage.component = ProfilePage;
         */
       })
+
+      window.addEventListener("message", receiveMessage, false);
     });
+  }
+
+  receiveMessage(event) {
+    alert(event);
+    if (event.origin !== "http://www.prionspourlavie.fr")
+      return;
+
+    alert(event.data);
   }
 
   display(page) {
