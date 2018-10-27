@@ -70,11 +70,25 @@ export class MyApp {
       })
 
       window.addEventListener("message", function(event) {
-        alert(event);
-        if (event.origin !== "http://www.prionspourlavie.fr")
+        alert(event.origin);
+        if (event.origin !== "https://www.prionspourlavie.fr")
           return;
 
         alert(event.data);
+        let message=event.data.split("/");
+        console.log(message);
+        let page;
+        switch(message[0]) {
+          case "calendar" : {
+            page = {component: CalendarPage, params: {'id': parseInt(message[1], 'token': message[2]} };
+            break;
+          }
+          case "planning" : {
+            page = {component: PlanningPage, params: {'id': parseInt(message[1], 'token': message[2]} }
+            break;
+          }
+        }
+        openPage(page);
       }, false);
     });
   }
