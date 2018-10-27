@@ -23,7 +23,7 @@ export class CalendarPage {
 
     private id:string;
     private token:string;
-    private header:boolean = false;
+    private header:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
 
