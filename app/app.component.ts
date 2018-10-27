@@ -74,11 +74,6 @@ export class MyApp {
         connectPage.component = ProfilePage;
         */
       })
-/*
-      window.addEventListener("message", () => {
-        this.receiveMessage();
-      }, false);
-*/
     });
 
   }

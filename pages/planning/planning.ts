@@ -151,6 +151,7 @@ export class PlanningPage {
   }
 
   toggleHours() {
+    alert("iic");
     this.newSlots = undefined;
     this.prayerHours=!this.prayerHours;
   }
