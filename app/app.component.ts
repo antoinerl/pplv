@@ -84,22 +84,16 @@ export class MyApp {
   }
 
   receiveMessage: any = (event: any) => {
-    alert(event.origin);
     if (event.origin !== "https://www.prionspourlavie.fr")
       return;
 
-    alert(event.data);
-    let message=event.data.split("/");
-    console.log(message);
     let page;
-    switch(message[0]) {
+    switch(event.data) {
       case "calendar" : {
-        //page = {component: CalendarPage, params: {'id': parseInt(message[1]), 'token': message[2], 'header': 'false'} };
         page = {component: CalendarPage, params: {"header": 'false'} };
         break;
       }
       case "planning" : {
-        //page = {component: PlanningPage, params: {'id': parseInt(message[1]), 'token': message[2], 'header': 'false'} }
         page = {component: PlanningPage, params: {"header": 'false'} }
         break;
       }
