@@ -69,16 +69,14 @@ export class MyApp {
         */
       })
 
-      window.addEventListener("message", receiveMessage, false);
+      window.addEventListener("message", function(event) {
+        alert(event);
+        if (event.origin !== "http://www.prionspourlavie.fr")
+          return;
+
+        alert(event.data);
+      }, false);
     });
-  }
-
-  receiveMessage(event) {
-    alert(event);
-    if (event.origin !== "http://www.prionspourlavie.fr")
-      return;
-
-    alert(event.data);
   }
 
   display(page) {
