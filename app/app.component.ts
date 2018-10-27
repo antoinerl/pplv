@@ -92,11 +92,13 @@ export class MyApp {
     let page;
     switch(message[0]) {
       case "calendar" : {
-        page = {component: CalendarPage, params: {'id': parseInt(message[1]), 'token': message[2]} };
+        //page = {component: CalendarPage, params: {'id': parseInt(message[1]), 'token': message[2], 'header': 'false'} };
+        this.navCtrl.setRoot(PlanningPage, {"header": 'false'});
         break;
       }
       case "planning" : {
-        page = {component: PlanningPage, params: {'id': parseInt(message[1]), 'token': message[2]} }
+        //page = {component: PlanningPage, params: {'id': parseInt(message[1]), 'token': message[2], 'header': 'false'} }
+        this.navCtrl.setRoot(PlanningPage, {"header": 'false'});
         break;
       }
     }

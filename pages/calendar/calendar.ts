@@ -56,6 +56,6 @@ export class CalendarPage {
   }
 
   openPlanning() {
-    this.navCtrl.setRoot(PlanningPage, {"header": this.header});
+    this.navCtrl.setRoot(PlanningPage, {"header": ""+this.header});
   }
 }

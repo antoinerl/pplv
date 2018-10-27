@@ -133,7 +133,7 @@ export class PlanningPage {
   }
 
   openAgenda() {
-    this.navCtrl.setRoot(CalendarPage, {"header": this.header});
+    this.navCtrl.setRoot(CalendarPage, {"header": ""+this.header});
   }
 
   toggleMailReminder() {  
