@@ -17,7 +17,13 @@
 
 
 <ion-content padding>
-    <h2 *ngIf="thanks">Merci pour votre inscription !</h2>
+    <div *ngIf="thanks" class="thanks">
+      <h2>Merci pour votre inscription !</h2>
+      <div class="shareonfb" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.prionspourlavie.fr', 'sharer', 'width=626,height=436');">
+        <img src="assets/icon/fb.png">
+        <span>Partager sur Facebook !</span>
+      </div>
+    </div>
 
     <button ion-button full (click)="presentSyncModal()">
         <ion-icon name="calendar"></ion-icon>
@@ -59,12 +65,27 @@
          <ion-icon *ngIf="!prayerHours" name="arrow-dropdown"></ion-icon>
     </button>
     
+
+    <ion-list *ngIf="header && (prayerHours || newSlots !== undefined)">
+      <ion-item>
+          Pour supprimer des créneaux, glissez vers la droite ou vers la gauche.
+      </ion-item>
+    </ion-list>
+
     <ion-list *ngIf="prayerHours || newSlots !== undefined">
         <ion-item-sliding #slidingItem *ngFor="let slot of user?.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
             <ion-item *ngIf="isNewSlot(slot)">
                 {{slot | dateformat}}
+                <button color="danger" ion-button expandable (click)="delete(slot, true)" *ngIf="!header">
+                    <ion-icon name="trash"></ion-icon>
+                    <span>Tous les {{slot | weekday}}s</span>
+                </button>
+                <button color="warning" ion-button expandable (click)="delete(slot, false)" *ngIf="!header">
+                    <ion-icon name="trash"></ion-icon>
+                    <span>Cette date</span>
+                </button>
             </ion-item>
-            <ion-item-options side="right">
+            <ion-item-options side="right" *ngIf="header">
                 <button color="danger" ion-button expandable (click)="delete(slot, true)">
                     <ion-icon name="trash"></ion-icon>
                     <span>Tous les {{slot | weekday}}s</span>
@@ -75,7 +96,7 @@
                 </button>
                 
             </ion-item-options>
-            <ion-item-options side="left" (ionSwipe)="delete(slot, false)">
+            <ion-item-options side="left" (ionSwipe)="delete(slot, false)" *ngIf="header">
                 <button color="danger" ion-button expandable (click)="delete(slot, false)">
                     <ion-icon name="trash"></ion-icon>
                     <span>Supprimer</span>

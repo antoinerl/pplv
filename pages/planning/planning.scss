@@ -12,6 +12,8 @@ page-planning {
 
     button.button-full {
         margin-bottom: 20px;
+        font-size: 1.2em;
+        font-weight: bold;
     }
 
     button#toggleHours {
@@ -20,5 +22,40 @@ page-planning {
 
     .toggleReminder ion-label {
         font-weight: 600;
+    }
+
+    ion-item button.item-button {
+        float: right;
+    }
+
+    ion-item button span {
+        margin: 1px 4px;
+    }
+
+    .thanks {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 35px;
+    }
+
+    .thanks > * {
+        margin: auto;
+    }
+
+    .shareonfb {
+        display: flex;
+        background: #476398;
+        width: 200px;
+        margin: auto;
+        margin-top: 10px;
+    }
+
+    .shareonfb img {
+        height: 2em;
+    }
+
+    .shareonfb span {
+        margin: auto;
+        color: white;
     }
 }
