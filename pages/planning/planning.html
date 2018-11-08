@@ -58,21 +58,23 @@
 
     </div>
 
-    <button id="toggleHours" ion-button color="secondary" full (click)="toggleHours()">
+    <button id="toggleHours" ion-button color="secondary" full>
         <ion-icon name="time"></ion-icon>
         <span>Gérer mes heures de prières</span>
+        <!--
          <ion-icon *ngIf="prayerHours || newSlots !== undefined" name="arrow-dropup"></ion-icon>
          <ion-icon *ngIf="!prayerHours" name="arrow-dropdown"></ion-icon>
+        -->
     </button>
     
 
-    <ion-list *ngIf="header && (prayerHours || newSlots !== undefined)">
+    <ion-list >
       <ion-item>
           Pour supprimer des créneaux, glissez vers la droite ou vers la gauche.
       </ion-item>
     </ion-list>
 
-    <ion-list *ngIf="prayerHours || newSlots !== undefined">
+    <ion-list >
         <ion-item-sliding #slidingItem *ngFor="let slot of user?.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
             <ion-item *ngIf="isNewSlot(slot)">
                 {{slot | dateformat}}
