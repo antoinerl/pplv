@@ -68,13 +68,13 @@
     </button>
     
 
-    <ion-list >
+    <ion-list *ngIf="header">
       <ion-item>
           Pour supprimer des créneaux, glissez vers la droite ou vers la gauche.
       </ion-item>
     </ion-list>
 
-    <ion-list >
+    <ion-list>
         <ion-item-sliding #slidingItem *ngFor="let slot of user?.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
             <ion-item *ngIf="isNewSlot(slot)">
                 {{slot | dateformat}}
