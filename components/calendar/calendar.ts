@@ -47,10 +47,13 @@ export class CalendarComponent {
   public load() {
     this.platform.ready().then( (readySource) => {
       if (this.userProvider.isLogged() && !this.userProvider.getUser().slots) {
+        console.log("getting slots");
         this.userProvider.getSlots().then(data => {
+          console.log("before init");
           this.init(moment().format("YYYYMM"));
         });
       } else {
+        console.log("2 before init");
         this.init(moment().format("YYYYMM"));
       }
     });

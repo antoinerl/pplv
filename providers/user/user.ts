@@ -21,13 +21,17 @@ export class UserProvider {
             private storage: Storage) {
   }
 
+  setStorage(key, value) {
+    this.storage.set(key, value).catch(err => alert("Attention, l'application peut ne pas se comporter comme attendu en navigation privée."));
+  }
+
   getUser() {
     return this.user;
   }
 
   setUser(u) {
     this.user = u;
-    this.storage.set("user", u);
+    this.setStorage("user", u);
   }
 
   getSlots() {
@@ -38,17 +42,20 @@ export class UserProvider {
           .set('token', "TOKEN");
 
     return new Promise(resolve => {
-      this.http.get(this.config.wsURL + "/persons/getSlots.php", { 'params': params, 'headers': headers })
-        .pipe(
-          map(
-            (jsonArray: Object[]) => jsonArray.map(jsonItem => jsonItem)
-          )
-        ).subscribe( (data: any) => {
-          var arr = Object.keys(data).map(key => data[key]);
-              arr.sort((n1,n2) => n1 - n2); 
-              this.user.slots = arr;
-              this.setUser(this.user);
-              resolve(arr);
+        this.http.get(this.config.wsURL + "/persons/getSlots.php", { 'params': params, 'headers': headers })
+          .pipe(
+            map(
+              (jsonArray: Object[]) => jsonArray.map(jsonItem => jsonItem)
+            )
+          ).subscribe( (data: any) => {
+            
+            var arr = Object.keys(data).map(key => data[key]);
+                arr.sort((n1,n2) => n1 - n2); 
+                this.user.slots = arr;
+                this.setUser(this.user);
+                resolve(arr);
+          }, (err: any) => {
+            console.log(err);
         });
       });
   }
@@ -72,7 +79,7 @@ export class UserProvider {
               reject(data);
             } else {
               this.user = data;
-              this.storage.set("user", this.user);
+              this.setStorage("user", this.user);
               resolve(data);
             }
           }, err => {
@@ -95,7 +102,7 @@ export class UserProvider {
               reject(data);
             else {
               this.user = data;
-              this.storage.set("user", this.user);
+              this.setStorage("user", this.user);
               resolve(data);
             }
           }, err => {
@@ -118,9 +125,8 @@ export class UserProvider {
               reject(data);
             else {
               this.user = data;
-              this.storage.set("user", this.user).then( data => {
-                resolve(data);
-              })
+              resolve(data);
+              this.setStorage("user", this.user);
               
             }
           }, err => {

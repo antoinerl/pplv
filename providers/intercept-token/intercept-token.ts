@@ -57,7 +57,7 @@ export class InterceptTokenProvider implements HttpInterceptor {
                 (jsonArray: Object[]) => jsonArray.map(jsonItem => jsonItem)
             )).subscribe( token => {
                 user.meta.token = token;
-                this.storage.set("user", user);
+                this.storage.set("user", user).catch(err => {console.log(err)});
                 resolve(token);
             });
     });

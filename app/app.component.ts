@@ -66,7 +66,7 @@ export class MyApp {
 
       this.storage.get("user").then(data => {
         if (data === null)
-          return;
+          return; 
         this.userProvider.setUser(data);
         /*
         let connectPage = this.pages.find(e => e.title == "Connexion");

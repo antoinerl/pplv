@@ -19,10 +19,11 @@ export class HomePage {
     private localNotifications: LocalNotifications) {
         
         this.platform.ready().then(() => {
+            let isAndroid=true;
             this.localNotifications.schedule({
                text: 'Delayed ILocalNotification',
-               trigger: {at: new Date("2018-10-10 16:45:00")},
-               sound: 'file://sound.mp3',
+               trigger: {at: new Date("2018-11-08 21:37:00")},
+               sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
                led: 'FF0000'
             });
         });
