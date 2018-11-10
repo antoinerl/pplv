@@ -7,6 +7,10 @@ import * as $ from "jquery";
 import { CalendarPage } from '../../pages/calendar/calendar';
 import { LoginPage } from '../../pages/login/login';
 import { AddToCalendarComponent } from '../../components/add-to-calendar/add-to-calendar';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Platform } from 'ionic-angular';
+import * as moment from 'moment';
+import * as momentTz from 'moment-timezone';
 
 /**
  * Generated class for the PlanningPage page.
@@ -40,7 +44,9 @@ export class PlanningPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
               private userProvider: UserProvider,
-              private dateProvider: DateProvider) {
+              private dateProvider: DateProvider,
+              public platform: Platform,
+              private localNotifications: LocalNotifications) {
     if (navParams.get('thanks'))
       this.thanks = true;
 
@@ -74,6 +80,19 @@ export class PlanningPage {
     if (!this.user.slots) {
         this.userProvider.getSlots();
     }
+
+    this.userProvider.getLocalNotif().then( (value) => {
+      if (value == null || value == 0) 
+        this.reminderNotif = false;
+      else {
+        this.reminderNotif = true;
+        this.reminderNotifTime = value;
+        if (typeof this.newSlots !== "undefined") {
+          this.localNotifications.cancelAll();
+          this.toggleNotifReminder()
+        }
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -146,7 +165,46 @@ export class PlanningPage {
   }
 
   toggleNotifReminder() {
+    if (this.reminderNotif) {
+        if (!this.reminderNotifTime) 
+          this.reminderNotifTime = 15;
+        for (let slot of this.user.slots) {
+          this.addNotifReminder(slot);
+        }
+    } else {
+      this.localNotifications.cancelAll();
+    }
+    this.userProvider.setLocalNotif(this.reminderNotifTime);
+  }
+
+  addNotifReminder(slot) {
+    const timeZone = 'Europe/Paris';
     
+    let m = moment(new Date(slot*1000));
+    let momentEurope = momentTz.tz(m.format('YYYY-MM-DD HH:mm'),'YYYY-MM-DD HH:mm',timeZone);
+    momentEurope.subtract(this.reminderNotifTime, "minutes");
+
+    this.localNotifications.schedule({
+       text: "N'oubliez pas votre prière pour la vie à " + m.format("HH") + "h"+ m.format("mm"),
+       trigger: {at: new Date("2018-11-10 08:04:00")},
+       sound: this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf',
+       led: 'FF0000'
+    });
+
+    this.localNotifications.schedule({
+       text: "N'oubliez pas votre prière pour la vie à " + m.format("HH") + "h"+ m.format("mm"),
+       trigger: {at: new Date("2018-11-10 07:05:00")},
+       sound: this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf',
+       led: 'FF0000'
+    });
+
+    let dfp = new DateformatPipe();
+    this.localNotifications.schedule({
+       text: "N'oubliez pas votre prière pour la vie à " + m.format("HH") + "h"+ m.format("mm"),
+       trigger: {at: momentEurope.toDate()},
+       sound: this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf',
+       led: 'FF0000'
+    });
   }
 
   toggleHours() {

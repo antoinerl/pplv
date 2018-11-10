@@ -68,11 +68,8 @@ export class MyApp {
         if (data === null)
           return; 
         this.userProvider.setUser(data);
-        /*
-        let connectPage = this.pages.find(e => e.title == "Connexion");
-        connectPage.title = "Mon profil";
-        connectPage.component = ProfilePage;
-        */
+        
+        
       })
     });
 

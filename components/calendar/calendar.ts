@@ -47,13 +47,10 @@ export class CalendarComponent {
   public load() {
     this.platform.ready().then( (readySource) => {
       if (this.userProvider.isLogged() && !this.userProvider.getUser().slots) {
-        console.log("getting slots");
         this.userProvider.getSlots().then(data => {
-          console.log("before init");
           this.init(moment().format("YYYYMM"));
         });
       } else {
-        console.log("2 before init");
         this.init(moment().format("YYYYMM"));
       }
     });
@@ -172,7 +169,7 @@ export class CalendarComponent {
             this.init(moment().format("YYYYMM"));
           });
           //this.displayAlert(newSlots);
-          this.navCtrl.setRoot(PlanningPage, {'header': this.headerVisible, 'thanks':true, 'slots': newSlots});
+          this.navCtrl.setRoot(PlanningPage, {'header': this.headerVisible ? "true" : "false", 'thanks':true, 'slots': newSlots});
         })
         .catch(err => {
           console.log(err);

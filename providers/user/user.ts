@@ -25,6 +25,14 @@ export class UserProvider {
     this.storage.set(key, value).catch(err => alert("Attention, l'application peut ne pas se comporter comme attendu en navigation privée."));
   }
 
+  setLocalNotif(time) {
+    this.setStorage("localTime", time);
+  }
+
+  getLocalNotif() {
+    return this.storage.get("localTime");
+  }
+
   getUser() {
     return this.user;
   }
