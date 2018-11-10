@@ -70,7 +70,7 @@ export class UserProvider {
 
   isLogged() {
     if (this.user !== null) {
-      this.getSlots();
+      //this.getSlots();
     }
     return this.user !== null;
   }
