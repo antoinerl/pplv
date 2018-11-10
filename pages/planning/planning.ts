@@ -151,6 +151,7 @@ export class PlanningPage {
   }
 
   openAgenda() {
+    this.localNotifications.isScheduled(1).then( value => {console.log(value)});
     this.navCtrl.setRoot(CalendarPage, {"header": ""+this.header});
   }
 
@@ -184,25 +185,14 @@ export class PlanningPage {
     let momentEurope = momentTz.tz(m.format('YYYY-MM-DD HH:mm'),'YYYY-MM-DD HH:mm',timeZone);
     momentEurope.subtract(this.reminderNotifTime, "minutes");
 
-    this.localNotifications.schedule({
-       text: "N'oubliez pas votre prière pour la vie à " + m.format("HH") + "h"+ m.format("mm"),
-       trigger: {at: new Date("2018-11-10 08:04:00")},
-       sound: this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf',
-       led: 'FF0000'
-    });
-
-    this.localNotifications.schedule({
-       text: "N'oubliez pas votre prière pour la vie à " + m.format("HH") + "h"+ m.format("mm"),
-       trigger: {at: new Date("2018-11-10 07:05:00")},
-       sound: this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf',
-       led: 'FF0000'
-    });
-
     let dfp = new DateformatPipe();
+    let sound = this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf';
+
     this.localNotifications.schedule({
+      id: momentEurope.toDate().getTime(),
        text: "N'oubliez pas votre prière pour la vie à " + m.format("HH") + "h"+ m.format("mm"),
        trigger: {at: momentEurope.toDate()},
-       sound: this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf',
+       sound: sound,
        led: 'FF0000'
     });
   }
