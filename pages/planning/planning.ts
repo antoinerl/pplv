@@ -112,6 +112,8 @@ export class PlanningPage {
    }
 
   public openSlidingItem($event: Event, item: any) {
+    if (!this.header)
+      return;
     // This is to prevent a call to itemSliding.close() in the template
     $event.stopPropagation();
 

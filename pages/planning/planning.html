@@ -43,7 +43,7 @@
           <ion-option value="120">2 heures avant</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item class="toggleReminder" *ngIf="platform.is('cordova')">
+      <ion-item class="toggleReminder" *ngIf="header">
         <ion-label>Recevoir une notification sur l'application</ion-label>
         <ion-toggle [(ngModel)]="reminderNotif"  (ngModelChange)="toggleNotifReminder()"></ion-toggle>
       </ion-item>
