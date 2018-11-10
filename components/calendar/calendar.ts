@@ -161,7 +161,7 @@ export class CalendarComponent {
   }
 
   valid() {
-  alert("ici");
+  
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 

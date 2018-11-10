@@ -22,7 +22,7 @@ export class UserProvider {
   }
 
   setStorage(key, value) {
-    alert("setting " + key);
+    
     this.storage.set(key, value)
       .then( () => console.log("set " + key) )
       .catch(err => alert("Attention, l'application peut ne pas se comporter comme attendu en navigation privée."));
