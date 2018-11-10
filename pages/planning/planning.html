@@ -47,7 +47,7 @@
         <ion-label>Recevoir une notification sur l'application</ion-label>
         <ion-toggle [(ngModel)]="reminderNotif"  (ngModelChange)="toggleNotifReminder()"></ion-toggle>
       </ion-item>
-      <ion-item *ngIf="reminderNotif">
+      <ion-item *ngIf="header && reminderNotif">
         <ion-select [(ngModel)]="reminderNotifTime"  (ngModelChange)="toggleNotifReminder()">
           <ion-option value="15">15 minutes avant</ion-option>
           <ion-option value="30">30 minutes avant</ion-option>
