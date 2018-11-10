@@ -77,9 +77,7 @@ export class PlanningPage {
 
   load() {
     this.user = this.userProvider.getUser();
-    if (!this.user.slots) {
-        this.userProvider.getSlots();
-    }
+    this.userProvider.getSlots();
 
     this.userProvider.getLocalNotif().then( (value) => {
       if (value == null || value == 0) 
@@ -179,22 +177,25 @@ export class PlanningPage {
   }
 
   addNotifReminder(slot) {
-    const timeZone = 'Europe/Paris';
-    
+    const utc = 'UTC';
+    const europe = 'Europe/Paris';
+
     let m = moment(new Date(slot*1000));
-    let momentEurope = momentTz.tz(m.format('YYYY-MM-DD HH:mm'),'YYYY-MM-DD HH:mm',timeZone);
+    let momentUTC = m.tz(utc);
+    let momentEurope = moment.tz(momentUTC.format('YYYY-MM-DD HH:mm'),'YYYY-MM-DD HH:mm', europe);
     momentEurope.subtract(this.reminderNotifTime, "minutes");
 
     let dfp = new DateformatPipe();
     let sound = this.platform.is("android") ? 'file://sound.mp3': 'file://beep.caf';
 
     this.localNotifications.schedule({
-      id: momentEurope.toDate().getTime(),
-       text: "N'oubliez pas votre prière pour la vie à " + m.format("HH") + "h"+ m.format("mm"),
+      id: momentUTC.toDate().getTime(),
+       text: "N'oubliez pas votre prière pour la vie à " + momentUTC.format("HH") + "h"+ momentUTC.format("mm"),
        trigger: {at: momentEurope.toDate()},
        sound: sound,
        led: 'FF0000'
     });
+
   }
 
   toggleHours() {

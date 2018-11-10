@@ -46,7 +46,7 @@ export class CalendarComponent {
 
   public load() {
     this.platform.ready().then( (readySource) => {
-      if (this.userProvider.isLogged() && !this.userProvider.getUser().slots) {
+      if (this.userProvider.isLogged()) {
         this.userProvider.getSlots().then(data => {
           this.init(moment().format("YYYYMM"));
         });
@@ -161,7 +161,7 @@ export class CalendarComponent {
   }
 
   valid() {
-  
+
     if (this.recurrence && !this.dateProvider.getSelectedRecurrence())
       return;
 

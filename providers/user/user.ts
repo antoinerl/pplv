@@ -67,14 +67,12 @@ export class UserProvider {
                 resolve(arr);
           }, (err: any) => {
             console.log(err);
+            resolve(this.user.slots);
         });
       });
   }
 
   isLogged() {
-    if (this.user !== null) {
-      //this.getSlots();
-    }
     return this.user !== null;
   }
 
