@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, Content } from 'ionic-angular';
 import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
 import 'moment-timezone';
@@ -8,7 +8,6 @@ import * as $ from "jquery";
 import { DateProvider } from '../../providers/date/date';
 import { PrayersProvider } from '../../providers/prayers/prayers';
 import { UserProvider } from '../../providers/user/user';
-
 import { PlanningPage } from '../../pages/planning/planning';
 
 /**
@@ -40,7 +39,8 @@ export class CalendarComponent {
         private dateProvider : DateProvider, 
         private prayersProvider : PrayersProvider, 
         private userProvider: UserProvider,
-        private navCtrl: NavController) {
+        private navCtrl: NavController,
+        private content:Content) {
 
 	}
 
@@ -118,6 +118,8 @@ export class CalendarComponent {
     this.dateProvider.setSelectedDate(unixUTC);
     this.selectedDate = this.dateProvider.getSelectedDate();
 
+    this.content.scrollTo(0,250, 300);
+
     this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours(unixUTC, data));
 
 	}  
@@ -152,6 +154,14 @@ export class CalendarComponent {
   setHour(hour: number) {
     if (!this.dateProvider.getSelectedDate())
       return;
+
+      console.log(this.headerVisible);
+
+    if (this.headerVisible) {
+      this.content.scrollTo(0,700,300);
+    } else {
+      this.content.scrollTo(0,0,300);
+    }
 
     this.dateProvider.setSelectedHour(hour);
     $(".hour").removeClass("selected");

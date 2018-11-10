@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Content } from 'ionic-angular';
 import { CalendarComponent } from '../../components/calendar/calendar';
 import { UserProvider } from '../../providers/user/user';
 
@@ -20,6 +20,7 @@ import { PlanningPage } from '../../pages/planning/planning';
 })
 export class CalendarPage {
     @ViewChild (CalendarComponent) calendar:CalendarComponent;
+    @ViewChild(Content) content: Content;
 
     private id:string;
     private token:string;
