@@ -22,7 +22,10 @@ export class UserProvider {
   }
 
   setStorage(key, value) {
-    this.storage.set(key, value).catch(err => alert("Attention, l'application peut ne pas se comporter comme attendu en navigation privée."));
+    alert("setting " + key);
+    this.storage.set(key, value)
+      .then( () => console.log("set " + key) )
+      .catch(err => alert("Attention, l'application peut ne pas se comporter comme attendu en navigation privée."));
   }
 
   setLocalNotif(time) {
@@ -113,6 +116,7 @@ export class UserProvider {
               reject(data);
             else {
               this.user = data;
+              alert("ici");
               this.setStorage("user", this.user);
               resolve(data);
             }

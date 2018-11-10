@@ -15,11 +15,14 @@ import { fromPromise } from "rxjs/observable/fromPromise";
 import { mergeMap } from "rxjs/operators/mergeMap";
 import { map } from "rxjs/operators";
 
+import { UserProvider } from "../user/user";
+
 @Injectable()
 export class InterceptTokenProvider implements HttpInterceptor {
   constructor(
     private storage: Storage,
-    public http: HttpClient
+    public http: HttpClient,
+    private userProvider: UserProvider
   ) {}
 
   private getToken(): Promise<any> {
@@ -29,16 +32,16 @@ export class InterceptTokenProvider implements HttpInterceptor {
      * @returns {Promise}
      */
     return new Promise( (resolve, reject) => {
-      this.storage.get("user").then(_user => {
-        if (_user == null)
-          resolve("EMPTY_TOKEN");
-        else {
-          //this.authService.refresh().then(() => {
-          //  resolve(_user.data.token);
-          //});
-          resolve(_user.data.meta.token);
-        }
-      });
+      let _user = this.userProvider.getUser();
+      if (_user == null)
+        resolve("EMPTY_TOKEN");
+      else {
+        //this.authService.refresh().then(() => {
+        //  resolve(_user.data.token);
+        //});
+        resolve(_user.data.meta.token);
+      }
+      
     });
   }
 
