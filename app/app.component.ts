@@ -64,6 +64,8 @@ export class MyApp {
       this.splashScreen.hide();
       moment.locale("fr");
 
+      $(".smartbanner").appendTo("html");
+
       this.storage.get("user").then(data => {
         if (data === null)
           return; 
