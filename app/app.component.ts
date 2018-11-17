@@ -15,7 +15,7 @@ import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 
 import { Storage } from '@ionic/storage';
-
+import * as $ from "jquery";
 
 import * as moment from 'moment';
 
