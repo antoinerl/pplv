@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -33,7 +33,8 @@ export class MyApp {
               public statusBar: StatusBar, 
               public splashScreen: SplashScreen,
               private storage: Storage,
-              private userProvider: UserProvider) {
+              private userProvider: UserProvider,
+              private menu: MenuController) {
 
     if (window.addEventListener) {
        window.addEventListener("message", this.receiveMessage.bind(this), false);
@@ -63,6 +64,9 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       moment.locale("fr");
+      this.platform.registerBackButtonAction(function() {
+        console.log(this.nav.canGoBack());
+      }, 1);
 
       $(".smartbanner").appendTo("html");
 
@@ -78,9 +82,6 @@ export class MyApp {
   }
 
   receiveMessage: any = (event: any) => {
-    //if (event.origin !== "https://www.prionspourlavie.fr")
-      //return;
-
     let page;
     switch(event.data) {
       case "calendar" : {

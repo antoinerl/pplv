@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { WpProvider } from '../../providers/wp/wp';
 
 import { CalendarPage } from '../../pages/calendar/calendar';
+import { UserProvider } from '../../providers/user/user';
 
 @Component({
   selector: 'page-home',
@@ -10,15 +10,25 @@ import { CalendarPage } from '../../pages/calendar/calendar';
 })
 export class HomePage {
 
+  private ctaText: string;
+
   constructor(
     public navCtrl: NavController,
-    private wp: WpProvider
+    private userProvider: UserProvider
+    
     ) {
         
     }
 
-    openCalendar() {
-        this.navCtrl.setRoot(CalendarPage);
-    }
+  ionViewDidLoad() {
+    if (this.userProvider.isLogged())
+      this.ctaText = "Réserver un créneau";
+    else
+      this.ctaText = "Rejoignez-nous";
+  }
+
+  openCalendar() {
+      this.navCtrl.setRoot(CalendarPage);
+  }
 
 }
