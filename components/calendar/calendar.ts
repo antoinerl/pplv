@@ -68,7 +68,7 @@ export class CalendarComponent {
       if (this.userProvider.isLogged())
         this.prepareUserSlots();
       
-      this.prayersProvider.getPrayers(monthIndex, false).then((prayers) => { this.displayPrayers(prayers); });
+      this.prayersProvider.getPrayers(monthIndex, false, null).then((prayers) => { this.displayPrayers(prayers); });
     
   }
 
@@ -121,7 +121,7 @@ export class CalendarComponent {
 
     this.content.scrollTo(0,250, 300);
 
-    this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true).then((data) => this.openHours(unixUTC, data));
+    this.prayersProvider.getPrayers(this.toDayindex(this.selectedDate), true, null).then((data) => this.openHours(unixUTC, data));
 
 	}  
 

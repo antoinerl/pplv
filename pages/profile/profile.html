@@ -19,34 +19,118 @@
 <ion-content padding>
     <p>Email : {{user?.data.user_login}}</p>
 
-    <button ion-button color="secondary" full >
-        <ion-icon name="time"></ion-icon>
-        <span>Mes heures de prières</span>
-    </button>
-    <ion-list >
-        <ion-item-sliding #slidingItem *ngFor="let slot of user?.slots" (click)="openSlidingItem($event, slidingItem)" (ionDrag)="closeAllItems()">
-            <ion-item>
-                {{slot | dateformat}}
-            </ion-item>
-            <ion-item-options side="right">
-                <button color="danger" ion-button expandable (click)="deleteRecurrence(slot)">
-                    <ion-icon name="trash"></ion-icon>
-                    <span>Tous les {{slot | weekday}}s</span>
-                </button>
-                <button color="warning" ion-button expandable (click)="delete(slot)">
-                    <ion-icon name="trash"></ion-icon>
-                    <span>Cette date</span>
-                </button>
-                
-            </ion-item-options>
-            <ion-item-options side="left" (ionSwipe)="delete(slot)">
-                <button color="danger" ion-button expandable (click)="delete(slot)">
-                    <ion-icon name="trash"></ion-icon>
-                    <span>Supprimer</span>
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
+    <ion-item>
+        <ion-label fixed>Département</ion-label>
+        <ion-select [(ngModel)]="this.user?.data.meta.zipcode" (ngModelChange)="save()">
+            <ion-option id='dpt_1' value='1'>01 - Ain</ion-option>
+            <ion-option id='dpt_2' value='2'>02 - Aisne</ion-option>
+            <ion-option id='dpt_3' value='3'>03 - Allier</ion-option>
+            <ion-option id='dpt_4' value='4'>04 - Alpes de Haute-Provence</ion-option>
+            <ion-option id='dpt_5' value='5'>05 - Hautes-Alpes</ion-option>
+            <ion-option id='dpt_6' value='6'>06 - Alpes-Maritimes</ion-option>
+            <ion-option id='dpt_7' value='7'>07 - Ardèche</ion-option>
+            <ion-option id='dpt_8' value='8'>08 - Ardennes</ion-option>
+            <ion-option id='dpt_9' value='9'>09 - Ariège</ion-option>
+            <ion-option id='dpt_10' value='10'>10 - Aube</ion-option>
+            <ion-option id='dpt_11' value='11'>11 - Aude</ion-option>
+            <ion-option id='dpt_12' value='12'>12 - Aveyron</ion-option>
+            <ion-option id='dpt_13' value='13'>13 - Bouches du Rhône</ion-option>
+            <ion-option id='dpt_14' value='14'>14 - Calvados</ion-option>
+            <ion-option id='dpt_15' value='15'>15 - Cantal</ion-option>
+            <ion-option id='dpt_16' value='16'>16 - Charente</ion-option>
+            <ion-option id='dpt_17' value='17'>17 - Charente Maritime</ion-option>
+            <ion-option id='dpt_18' value='18'>18 - Cher</ion-option>
+            <ion-option id='dpt_19' value='19'>19 - Corrèze</ion-option>
+            <ion-option id='dpt_20' value='20'>20 - Corse</ion-option>
+            <ion-option id='dpt_21' value='21'>21 - Côte d'Or</ion-option>
+            <ion-option id='dpt_22' value='22'>22 - Côtes d'Armor</ion-option>
+            <ion-option id='dpt_23' value='23'>23 - Creuse</ion-option>
+            <ion-option id='dpt_24' value='24'>24 - Dordogne</ion-option>
+            <ion-option id='dpt_25' value='25'>25 - Doubs</ion-option>
+            <ion-option id='dpt_26' value='26'>26 - Drôme</ion-option>
+            <ion-option id='dpt_27' value='27'>27 - Eure</ion-option>
+            <ion-option id='dpt_28' value='28'>28 - Eure-et-Loir</ion-option>
+            <ion-option id='dpt_29' value='29'>29 - Finistère</ion-option>
+            <ion-option id='dpt_30' value='30'>30 - Gard</ion-option>
+            <ion-option id='dpt_31' value='31'>31 - Haute-Garonne</ion-option>
+            <ion-option id='dpt_32' value='32'>32 - Gers</ion-option>
+            <ion-option id='dpt_33' value='33'>33 - Gironde</ion-option>
+            <ion-option id='dpt_34' value='34'>34 - Hérault</ion-option>
+            <ion-option id='dpt_35' value='35'>35 - Ille-et-Vilaine</ion-option>
+            <ion-option id='dpt_36' value='36'>36 - Indre</ion-option>
+            <ion-option id='dpt_37' value='37'>37 - Indre-et-Loire</ion-option>
+            <ion-option id='dpt_38' value='38'>38 - Isère</ion-option>
+            <ion-option id='dpt_39' value='39'>39 - Jura</ion-option>
+            <ion-option id='dpt_40' value='40'>40 - Landes</ion-option>
+            <ion-option id='dpt_41' value='41'>41 - Loir-et-Cher</ion-option>
+            <ion-option id='dpt_42' value='42'>42 - Loire</ion-option>
+            <ion-option id='dpt_43' value='43'>43 - Haute-Loire</ion-option>
+            <ion-option id='dpt_44' value='44'>44 - Loire-Atlantique</ion-option>
+            <ion-option id='dpt_45' value='45'>45 - Loiret</ion-option>
+            <ion-option id='dpt_46' value='46'>46 - Lot</ion-option>
+            <ion-option id='dpt_47' value='47'>47 - Lot-et-Garonne</ion-option>
+            <ion-option id='dpt_48' value='48'>48 - Lozère</ion-option>
+            <ion-option id='dpt_49' value='49'>49 - Maine-et-Loire</ion-option>
+            <ion-option id='dpt_50' value='50'>50 - Manche</ion-option>
+            <ion-option id='dpt_51' value='51'>51 - Marne</ion-option>
+            <ion-option id='dpt_52' value='52'>52 - Haute-Marne</ion-option>
+            <ion-option id='dpt_53' value='53'>53 - Mayenne</ion-option>
+            <ion-option id='dpt_54' value='54'>54 - Meurthe-et-Moselle</ion-option>
+            <ion-option id='dpt_55' value='55'>55 - Meuse</ion-option>
+            <ion-option id='dpt_56' value='56'>56 - Morbihan</ion-option>
+            <ion-option id='dpt_57' value='57'>57 - Moselle</ion-option>
+            <ion-option id='dpt_58' value='58'>58 - Nièvre</ion-option>
+            <ion-option id='dpt_59' value='59'>59 - Nord</ion-option>
+            <ion-option id='dpt_60' value='60'>60 - Oise</ion-option>
+            <ion-option id='dpt_61' value='61'>61 - Orne</ion-option>
+            <ion-option id='dpt_62' value='62'>62 - Pas-de-Calais</ion-option>
+            <ion-option id='dpt_63' value='63'>63 - Puy-de-Dôme</ion-option>
+            <ion-option id='dpt_64' value='64'>64 - Pyrénées-Atlantiques</ion-option>
+            <ion-option id='dpt_65' value='65'>65 - Hautes-Pyrénées</ion-option>
+            <ion-option id='dpt_66' value='66'>66 - Pyrénées-Orientales</ion-option>
+            <ion-option id='dpt_67' value='67'>67 - Bas-Rhin</ion-option>
+            <ion-option id='dpt_68' value='68'>68 - Haut-Rhin</ion-option>
+            <ion-option id='dpt_69' value='69'>69 - Rhône</ion-option>
+            <ion-option id='dpt_70' value='70'>70 - Haute-Saône</ion-option>
+            <ion-option id='dpt_71' value='71'>71 - Saône-et-Loire</ion-option>
+            <ion-option id='dpt_72' value='72'>72 - Sarthe</ion-option>
+            <ion-option id='dpt_73' value='73'>73 - Savoie</ion-option>
+            <ion-option id='dpt_74' value='74'>74 - Haute-Savoie</ion-option>
+            <ion-option id='dpt_75' value='75'>75 - Paris</ion-option>
+            <ion-option id='dpt_76' value='76'>76 - Seine-Maritime</ion-option>
+            <ion-option id='dpt_77' value='77'>77 - Seine-et-Marne</ion-option>
+            <ion-option id='dpt_78' value='78'>78 - Yvelines</ion-option>
+            <ion-option id='dpt_79' value='79'>79 - Deux-Sèvres</ion-option>
+            <ion-option id='dpt_80' value='80'>80 - Somme</ion-option>
+            <ion-option id='dpt_81' value='81'>81 - Tarn</ion-option>
+            <ion-option id='dpt_82' value='82'>82 - Tarn-et-Garonne</ion-option>
+            <ion-option id='dpt_83' value='83'>83 - Var</ion-option>
+            <ion-option id='dpt_84' value='84'>84 - Vaucluse</ion-option>
+            <ion-option id='dpt_85' value='85'>85 - Vendée</ion-option>
+            <ion-option id='dpt_86' value='86'>86 - Vienne</ion-option>
+            <ion-option id='dpt_87' value='87'>87 - Haute-Vienne</ion-option>
+            <ion-option id='dpt_88' value='88'>88 - Vosges</ion-option>
+            <ion-option id='dpt_89' value='89'>89 - Yonne</ion-option>
+            <ion-option id='dpt_90' value='90'>90 - Territoire-de-Belfort</ion-option>
+            <ion-option id='dpt_91' value='91'>91 - Essonne</ion-option>
+            <ion-option id='dpt_92' value='92'>92 - Hauts-de-Seine</ion-option>
+            <ion-option id='dpt_93' value='93'>93 - Seine-St-Denis</ion-option>
+            <ion-option id='dpt_94' value='94'>94 - Val-de-Marne</ion-option>
+            <ion-option id='dpt_95' value='95'>95 - Val-d'Oise</ion-option>
+            <ion-option id='dpt_971' value='971'>971 - Guadeloupe</ion-option>
+            <ion-option id='dpt_972' value='972'>972 - Martinique</ion-option>
+            <ion-option id='dpt_973' value='973'>973 - Guyane</ion-option>
+            <ion-option id='dpt_974' value='974'>974 - La Réunion</ion-option>
+            <ion-option id='dpt_99' value='99'>99 - Etranger</ion-option>
+
+        </ion-select>
+
+    </ion-item>
+
+    <ion-item>
+        <ion-label fixed>Mot de passe</ion-label>
+        <ion-input type="password" [(ngModel)]="password" clearOnEdit="true" placeholder="nouveau mot de passe" (change)="savePassword(value)"></ion-input>
+      </ion-item>
 
     <button ion-button color="primary" full (click)="disconnect()">
         <ion-icon name="exit"></ion-icon>

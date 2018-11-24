@@ -100,6 +100,33 @@ export class UserProvider {
       });
   }
 
+  updateAccount(password: string, zipcode: number) {
+    let body = new HttpParams({
+      fromObject : {
+        'ID' : this.user.ID,
+        'password' : password,
+        'zipcode': String(zipcode)
+      }
+    });
+
+    let headers = new HttpHeaders()
+          .set('token', "TOKEN");
+
+    return new Promise( (resolve, reject) => {
+        this.http.post(this.config.wsURL + "/persons/modifyPerson.php", body).subscribe(data => {
+            if ('error' in data) {
+              reject(data);
+            } else {
+              this.user = data;
+              this.setStorage("user", this.user);
+              resolve(data);
+            }
+          }, err => {
+            console.log(err);
+          });
+      });
+  }
+
   login(email: string, password: string) {
     let body = new HttpParams({
       fromObject : {
