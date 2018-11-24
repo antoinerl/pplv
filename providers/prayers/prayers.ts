@@ -19,13 +19,16 @@ export class PrayersProvider {
     
   }
 
-  getPrayers(dayindex, time) {
+  getPrayers(dayindex, time, slot) {
     let params = new HttpParams()
         .set('dayindex', String(dayindex))
         .set('time', "false");
         
     if (time) {
         params = params.set('time', "true");
+    }
+    if (slot) {
+        params = params.set('slot', slot);
     }
     return new Promise(resolve => {
         this.http.get(this.config.wsURL + "/prayers/getPrayers.php", { params: params })

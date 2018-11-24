@@ -12,6 +12,7 @@ import { PlanningPage } from '../pages/planning/planning';
 import { CommentPrierPage } from '../pages/comment-prier/comment-prier';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
+import { MapPage } from '../pages/map/map';
 
 import { CalendarModule } from "ion2-calendar";
 import { CalendarComponent } from '../components/calendar/calendar';
@@ -49,6 +50,7 @@ import { InterceptTokenProvider } from '../providers/intercept-token/intercept-t
     PlanningPage,
     LoginPage,
     ProfilePage,
+    MapPage,
   	CalendarComponent,
     AddToCalendarComponent,
   	RecurrentMenuComponent,
@@ -89,6 +91,7 @@ import { InterceptTokenProvider } from '../providers/intercept-token/intercept-t
     PlanningPage,
     LoginPage,
     ProfilePage,
+    MapPage,
     CalendarComponent,
     RecurrentMenuComponent,
     ValidScheduleComponent,

@@ -13,6 +13,7 @@ import { PlanningPage } from '../pages/planning/planning';
 import { CommentPrierPage } from '../pages/comment-prier/comment-prier';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
+import { MapPage } from '../pages/map/map';
 
 import { Storage } from '@ionic/storage';
 import * as $ from "jquery";
@@ -46,6 +47,7 @@ export class MyApp {
 
     this.pages = [
       { title: 'Accueil', component: HomePage, params: {} },
+      { title: 'Carte des priants', component: MapPage, params: {} },
       { title: 'Calendrier', component: CalendarPage, params: {'id': 0, 'token': 0} },
       { title: 'Planning', component: PlanningPage, params: {'id': 0, 'token': 0} },
       { title: 'Comment prier ?', component: CommentPrierPage, params: {} },
