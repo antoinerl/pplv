@@ -1,0 +1,20 @@
+page-map {
+    span.pictoCarte.pictoOrange {
+        background-image: url(/assets/icon/pictoCarteOrange.png);
+        padding: 3px 13px;
+    }
+    span.pictoCarte.pictoRed {
+        background-image: url(/assets/icon/pictoCarteRouge.png);
+        padding: 3px 13px;
+    }
+    span.pictoCarte {
+        position: absolute;
+        height: 50px;
+        width: 30px;
+        background-repeat: no-repeat;
+        font-size: 13px;
+        font-weight: 700;
+        color: white;
+        z-index: 999;
+    }
+}
