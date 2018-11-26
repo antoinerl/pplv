@@ -100,12 +100,12 @@ export class UserProvider {
       });
   }
 
-  updateAccount(password: string, zipcode: number) {
+  updateAccount(password: string, zipcode: string) {
     let body = new HttpParams({
       fromObject : {
         'ID' : this.user.ID,
         'password' : password,
-        'zipcode': String(zipcode)
+        'zipcode': zipcode
       }
     });
 
