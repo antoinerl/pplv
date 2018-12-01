@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { WpProvider } from '../../providers/wp/wp';
 import { Platform } from 'ionic-angular';
 import { BlocPipe } from '../../pipes/bloc/bloc';
+import { PrierePage } from '../priere/priere';
 
 /**
  * Generated class for the TemoignagesPage page.
@@ -32,9 +33,8 @@ export class TemoignagesPage {
   }
 
   itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(TemoignagesPage, {
-      item: item
+    this.navCtrl.push(PrierePage, {
+      post: item
     });
   }
 
