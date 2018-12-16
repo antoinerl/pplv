@@ -86,8 +86,11 @@ export class PlanningPage {
         this.reminderNotif = true;
         this.reminderNotifTime = value;
         if (typeof this.newSlots !== "undefined") {
-          this.localNotifications.cancelAll();
-          this.toggleNotifReminder()
+          this.localNotifications.cancelAll().then(() => {
+            setTimeout( () => {
+              this.toggleNotifReminder();
+            }, 1000);
+          });
         }
       }
     })
@@ -169,6 +172,7 @@ export class PlanningPage {
     if (this.reminderNotif) {
         if (!this.reminderNotifTime) 
           this.reminderNotifTime = 15;
+
         for (let slot of this.user.slots) {
           this.addNotifReminder(slot);
         }
